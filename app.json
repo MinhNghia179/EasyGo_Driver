@@ -1,4 +1,11 @@
 {
   "name": "EasyGo_Driver",
-  "displayName": "EasyGo_Driver"
+  "displayName": "EasyGo_Driver",
+  "android": {
+    "config":{
+      "googleMaps":{
+        "apiKey":"AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8"
+      }
+    }
+  }
 }
