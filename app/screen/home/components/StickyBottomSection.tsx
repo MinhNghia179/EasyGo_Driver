@@ -62,7 +62,7 @@ const StickyBottomSection = (props: IProps) => {
             <Text fontWeight="bold" type="subhead">
               {portalUser?.username}
             </Text>
-            <Text color={Colors.Text.GreySecondary} type="footnote">
+            <Text color={Colors.Text.GreySecondary} type="caption1">
               Basic level
             </Text>
           </View>
@@ -71,7 +71,9 @@ const StickyBottomSection = (props: IProps) => {
           <Text fontWeight="bold" type="subhead">
             $20.00
           </Text>
-          <Text>Earned</Text>
+          <Text type="caption1" color={Colors.Text.GreySecondary}>
+            Earned
+          </Text>
         </View>
       </View>
       <View
@@ -81,6 +83,7 @@ const StickyBottomSection = (props: IProps) => {
           styles.flex_row,
           styles.alg_center,
           styles.jus_around,
+          styles.mt_small,
           {
             backgroundColor: Colors.Yellow300,
           },

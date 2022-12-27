@@ -56,13 +56,14 @@ const HomeDetailScreen = () => {
   return (
     <SafeAreaContainer
       title="Offline"
+      leftIconName="back"
       stickyTop={<StickyTopSection isOnline={stateUser} />}
       stickyBottom={<StickyBottomSection />}
       right={
         <Switch
           value={stateUser}
           onValueChange={setStateUser}
-          color={Colors.Green}
+          color={Colors.Orange500}
         />
       }
       contentType="scrollView">

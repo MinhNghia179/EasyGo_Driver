@@ -19,7 +19,7 @@ const StickyTopSection = (props: IProps) => {
         styles.flex_row,
         styles.alg_center,
         {
-          backgroundColor: isOnline ? Colors.Green : Colors.Orange500,
+          backgroundColor: Colors.Orange500,
         },
       ]}>
       <Icon
