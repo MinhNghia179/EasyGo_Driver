@@ -30,18 +30,16 @@ function _getNavigation(route: string, params: any) {
   let navRoute = route;
 
   switch (route) {
-    case HomeStackRoute.DASHBOARD:
-      {
-        navRoute = Route.APP;
-        navParams = {
-          screen: Route.HOME_STACK,
-          params: {
-            screen: route,
-            params: params,
-          },
-        };
-      }
-      break;
+    case HomeStackRoute.DASHBOARD: {
+      navRoute = Route.APP;
+      navParams = {
+        screen: Route.HOME_STACK,
+        params: {
+          screen: route,
+          params: params,
+        },
+      };
+    }
     case LoginStackRoute.LOGIN: {
       navRoute = Route.APP;
       navParams = {
@@ -56,6 +54,16 @@ function _getNavigation(route: string, params: any) {
       navRoute = Route.APP;
       navParams = {
         screen: Route.LOGIN_STACK,
+        params: {
+          screen: route,
+          params: params,
+        },
+      };
+    }
+    case HomeStackRoute.NEW_REQUESTS: {
+      navRoute = Route.APP;
+      navParams = {
+        screen: Route.HOME_STACK,
         params: {
           screen: route,
           params: params,

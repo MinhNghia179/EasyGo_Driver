@@ -7,6 +7,7 @@ const Route = {
 
 const HomeStackRoute = {
   DASHBOARD: 'Dashboard',
+  NEW_REQUESTS: 'NewRequest',
 };
 
 const LoginStackRoute = {

@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useSelector } from 'react-redux';
 import { Avatar } from '../../../components/Avatar';
 import { Text } from '../../../components/Text';
+import { HomeStackRoute } from '../../../constants/constant';
+import navigationService from '../../../navigation/navigation-service';
 import { IRootState } from '../../../redux/root-store';
 import { wp } from '../../../services/response-screen-service';
 import { Colors } from '../../../styles/colors';
@@ -41,6 +43,10 @@ const StickyBottomSection = (props: IProps) => {
   const { portalUser } = useSelector((state: IRootState) => ({
     portalUser: state.authStore.portalUser,
   }));
+
+  const navigateToNewRequestListing = () => {
+    navigationService.navigate(HomeStackRoute.NEW_REQUESTS, {});
+  };
 
   return (
     <View style={[styles.p_medium]}>
@@ -90,7 +96,12 @@ const StickyBottomSection = (props: IProps) => {
         ]}>
         <Item iconName="clockcircleo" label="HOURS ONLINE" value={10.2} />
         <Item iconName="dashboard" label="TOTAL DISTANCE (KM)" value={30} />
-        <Item iconName="exception1" label="TOTAL JOBS" value={20} />
+        <Item
+          iconName="exception1"
+          label="TOTAL JOBS"
+          value={20}
+          onPress={navigateToNewRequestListing}
+        />
       </View>
     </View>
   );
