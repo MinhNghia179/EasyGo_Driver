@@ -9,6 +9,7 @@ const HomeStackRoute = {
   DASHBOARD: 'Dashboard',
   NEW_REQUESTS: 'NewRequest',
   SHIFTS_ITEM_DETAIL: 'ShiftsItemDetail',
+  WIZARD_DETAIL: 'WizardDetail',
 };
 
 const LoginStackRoute = {

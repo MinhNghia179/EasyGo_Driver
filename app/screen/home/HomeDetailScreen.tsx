@@ -94,6 +94,7 @@ const HomeDetailScreen = () => {
         </Text>
         <View style={[styles.flex_col, styles.alg_center, styles.jus_between]}>
           <PrimaryButton
+            color={Colors.Orange500}
             style={[styles.mv_medium]}
             onPress={allowToEnableLocation}>
             Allow only while using the app

@@ -10,6 +10,8 @@ import GhostButton from '../../components/Button/GhostButton';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
+import { HomeStackRoute } from '../../constants/constant';
+import navigationService from '../../navigation/navigation-service';
 import { wp } from '../../services/response-screen-service';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
@@ -30,7 +32,15 @@ const ShiftsItemDetail = (props: IProps) => {
       leftIconOnPress={() => navigation.goBack()}
       stickyBottom={
         <View style={[styles.p_medium, styles.bg_white]}>
-          <PrimaryButton color={Colors.Yellow500}>Accept</PrimaryButton>
+          <PrimaryButton
+            onPress={() =>
+              navigationService.navigate(HomeStackRoute.WIZARD_DETAIL, {})
+            }>
+            see wizard details
+          </PrimaryButton>
+          <PrimaryButton style={[styles.mt_small]} color={Colors.Yellow500}>
+            Accept
+          </PrimaryButton>
         </View>
       }>
       <View style={[styles.p_medium, styles.flex_1]}>

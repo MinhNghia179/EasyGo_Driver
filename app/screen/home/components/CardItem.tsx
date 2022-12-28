@@ -15,14 +15,10 @@ const CardItem = (props: IProps) => {
   return (
     <View
       style={[
-        styles.bt_small,
-        styles.mt_small,
-        styles.pt_small,
         styles.flex_row,
         styles.alg_center,
         {
           borderColor: Colors.Grey300,
-          borderTopWidth: 0.5,
         },
       ]}>
       <View style={[styles.mr_medium, { minWidth: wp(52) }]}>

@@ -5,9 +5,11 @@ import {
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
+import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
 import { HomeStackRoute } from '../../constants/constant';
 import navigationService from '../../navigation/navigation-service';
+import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
 import ShiftsItem from './components/ShiftsItem';
 
@@ -23,6 +25,19 @@ const NewRequestListingScreen = (props: IProps) => {
       title="New Request"
       contentType="scrollView"
       leftIconName="back"
+      stickyTop={
+        <View
+          style={[
+            styles.p_medium,
+            {
+              backgroundColor: Colors.Orange500,
+            },
+          ]}>
+          <Text fontWeight="bold" type="caption1">
+            You have 10 new requests.
+          </Text>
+        </View>
+      }
       leftIconOnPress={() => navigation.goBack()}>
       <ScrollView>
         <View style={[styles.p_medium]}>

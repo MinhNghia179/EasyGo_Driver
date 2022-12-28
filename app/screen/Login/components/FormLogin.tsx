@@ -53,7 +53,7 @@ const FormLogin = (props: IProps) => {
   return (
     <>
       <PrimaryButton
-        color={Colors.Green600}
+        color={Colors.Orange500}
         disable={isLoading}
         onPress={onSelectLoginWithPhoneNumber}>
         Login with mobile number
@@ -87,7 +87,7 @@ const FormLogin = (props: IProps) => {
           />
         </View>
         <PrimaryButton
-          color={Colors.Green600}
+          color={Colors.Orange500}
           loading={isLoading}
           onPress={onSubmit}>
           Login
