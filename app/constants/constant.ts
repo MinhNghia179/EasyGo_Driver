@@ -8,6 +8,7 @@ const Route = {
 const HomeStackRoute = {
   DASHBOARD: 'Dashboard',
   NEW_REQUESTS: 'NewRequest',
+  SHIFTS_ITEM_DETAIL: 'ShiftsItemDetail',
 };
 
 const LoginStackRoute = {

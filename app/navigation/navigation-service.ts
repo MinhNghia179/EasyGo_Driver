@@ -70,6 +70,16 @@ function _getNavigation(route: string, params: any) {
         },
       };
     }
+    case HomeStackRoute.SHIFTS_ITEM_DETAIL: {
+      navRoute = Route.APP;
+      navParams = {
+        screen: Route.HOME_STACK,
+        params: {
+          screen: route,
+          params: params,
+        },
+      };
+    }
   }
 
   return { route: navRoute, params: navParams };

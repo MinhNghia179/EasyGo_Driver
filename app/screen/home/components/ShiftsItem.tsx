@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Avatar } from '../../../components/Avatar';
 import PrimaryButton from '../../../components/Button/PrimaryButton';
 import SecondaryButton from '../../../components/Button/SecondaryButton';
@@ -7,11 +7,15 @@ import { Text } from '../../../components/Text';
 import { wp } from '../../../services/response-screen-service';
 import { Colors } from '../../../styles/colors';
 import styles from '../../../styles/style-sheet';
-import AddressItem from './AddressItem';
+import CardItem from './CardItem';
 
-interface IProps {}
+interface IProps {
+  onNavigateShiftsDetail?: () => void;
+}
 
 const ShiftsItem = (props: IProps) => {
+  const { onNavigateShiftsDetail } = props;
+
   return (
     <View
       style={[
@@ -23,7 +27,8 @@ const ShiftsItem = (props: IProps) => {
           backgroundColor: Colors.White,
         },
       ]}>
-      <View
+      <TouchableOpacity
+        onPress={onNavigateShiftsDetail}
         style={[
           styles.flex_row,
           styles.alg_center,
@@ -54,10 +59,10 @@ const ShiftsItem = (props: IProps) => {
             2.2 km
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={[styles.p_medium]}>
-        <AddressItem label="PICK UP" value="68 cầu giấy" />
-        <AddressItem label="DROP OFF" value="219 trung kính" />
+        <CardItem label="PICK UP" value="68 cầu giấy" />
+        <CardItem label="DROP OFF" value="219 trung kính" />
         <View style={[styles.flex_row, styles.jus_end]}>
           <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
             Ignore

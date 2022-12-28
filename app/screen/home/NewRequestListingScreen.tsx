@@ -6,6 +6,8 @@ import {
   NavigationState,
 } from 'react-navigation';
 import { SafeAreaContainer } from '../../components/View';
+import { HomeStackRoute } from '../../constants/constant';
+import navigationService from '../../navigation/navigation-service';
 import styles from '../../styles/style-sheet';
 import ShiftsItem from './components/ShiftsItem';
 
@@ -24,7 +26,11 @@ const NewRequestListingScreen = (props: IProps) => {
       leftIconOnPress={() => navigation.goBack()}>
       <ScrollView>
         <View style={[styles.p_medium]}>
-          <ShiftsItem />
+          <ShiftsItem
+            onNavigateShiftsDetail={() =>
+              navigationService.navigate(HomeStackRoute.SHIFTS_ITEM_DETAIL, {})
+            }
+          />
           <ShiftsItem />
           <ShiftsItem />
           <ShiftsItem />

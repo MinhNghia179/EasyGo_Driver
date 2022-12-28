@@ -9,7 +9,7 @@ interface IProps {
   label: string;
   value: string;
 }
-const AddressItem = (props: IProps) => {
+const CardItem = (props: IProps) => {
   const { label, value } = props;
 
   return (
@@ -41,4 +41,4 @@ const AddressItem = (props: IProps) => {
   );
 };
 
-export default AddressItem;
+export default CardItem;
