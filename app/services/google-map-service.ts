@@ -122,11 +122,9 @@ export const getDirectionByCoordinates = async (payload: {
         type: instruction.maneuverType,
         text: instruction.text,
         coordinates: maneuverPoint.coordinates,
-        travelDuration: travelDuration,
+        travelDuration,
       }),
     );
-
-    console.log('Log', directions);
 
     return directions;
   } catch (error) {

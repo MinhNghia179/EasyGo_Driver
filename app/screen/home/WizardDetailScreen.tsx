@@ -89,7 +89,6 @@ const WizardDetailScreen = (props: IProps) => {
                 <DirectionIcon direction={one.type} />
                 <View
                   style={[
-                    styles.bb_small,
                     styles.flex_1,
                     {
                       borderColor: Colors.Black,
@@ -98,8 +97,8 @@ const WizardDetailScreen = (props: IProps) => {
                   <Text fontWeight="bold" type="footnote" numberOfLines={1}>
                     {one.text}
                   </Text>
-                  <View style={[styles.mt_small]}>
-                    <Text type="caption1">18m</Text>
+                  <View style={[styles.mt_small, styles.flex_row]}>
+                    <Text type="caption1">{one.travelDuration}</Text>
                   </View>
                 </View>
               </View>
