@@ -104,3 +104,33 @@ export const getRoutes = async (payload: {
     return null;
   }
 };
+
+export const getDirectionByCoordinates = async (payload: {
+  pickup: ICoordinates;
+  dropOff: ICoordinates;
+}) => {
+  const { pickup, dropOff } = payload;
+  try {
+    const response = await axios.get(
+      `${GOOGLE_BASE_URL}/Routes?wp.0=${pickup.latitude}, ${pickup.longitude}&wp.1=${dropOff.latitude}, ${dropOff.longitude}&key=${GOOGLE_REST_API_KEY}`,
+    );
+    const routeInfo = response.data.resourceSets[0].resources[0];
+    const { routeLegs } = routeInfo;
+
+    const directions = routeLegs[0].itineraryItems.map(
+      ({ instruction, maneuverPoint, travelDuration }) => ({
+        type: instruction.maneuverType,
+        text: instruction.text,
+        coordinates: maneuverPoint.coordinates,
+        travelDuration: travelDuration,
+      }),
+    );
+
+    console.log('Log', directions);
+
+    return directions;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
