@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Divider } from 'react-native-elements';
@@ -9,7 +10,6 @@ import {
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
-import { getDirectionByCoordinates } from '../../services/google-map-service';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
 import CardItem from './components/CardItem';
@@ -22,32 +22,13 @@ interface IProps {
 const WizardDetailScreen = (props: IProps) => {
   const { navigation } = props;
 
-  const [directionDetails, setDirectionDetails] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [shiftDetails, setShiftDetails] = useState<any>(null);
 
-  const fetchDirectionByCoordinates = async () => {
-    setIsLoading(true);
-    try {
-      const response = await getDirectionByCoordinates({
-        pickup: {
-          latitude: 21.03115664314368,
-          longitude: 105.80103309853264,
-        },
-        dropOff: {
-          latitude: 21.016335204145918,
-          longitude: 105.80485835828965,
-        },
-      });
-      setDirectionDetails(response);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const route: any = useRoute();
 
   useEffect(() => {
-    fetchDirectionByCoordinates();
-  }, []);
+    setShiftDetails(route.params.shiftDetails);
+  }, [route.params]);
 
   return (
     <SafeAreaContainer
@@ -66,25 +47,30 @@ const WizardDetailScreen = (props: IProps) => {
           <Text>
             Pick up at: &nbsp;
             <Text color={Colors.Text.Primary} fontWeight="bold">
-              7958 Swift Village
+              {shiftDetails?.pickUp.fullAddress}
             </Text>
           </Text>
         </View>
       }>
       <View style={[styles.p_medium]}>
         <View style={[styles.flex_row, styles.jus_around]}>
-          <CardItem label="EST" value={`${5} min`} />
-          <CardItem label="Distance" value={`${5} min`} />
+          <CardItem label="EST" value={`${shiftDetails?.travelDuration} min`} />
+          <CardItem
+            label="Distance"
+            value={`${shiftDetails?.travelDistance} km`}
+          />
           <CardItem label="Fare" value={`${5} min`} />
         </View>
         <PrimaryButton style={[styles.mt_small]} color={Colors.Yellow500}>
           DROP OFF
         </PrimaryButton>
+
         <Divider style={[styles.mv_12]} />
         <ScrollView>
-          {directionDetails.length ? (
-            directionDetails.map(one => (
+          {shiftDetails?.directions?.length ? (
+            shiftDetails?.directions?.map((one, index) => (
               <View
+                key={index}
                 style={[styles.flex_row, styles.alg_start, styles.mv_medium]}>
                 <DirectionIcon direction={one.type} />
                 <View

@@ -17,17 +17,20 @@ const CardItem = (props: IProps) => {
       style={[
         styles.flex_row,
         styles.alg_center,
+        styles.mv_x_small,
         {
           borderColor: Colors.Grey300,
         },
       ]}>
       <View style={[styles.mr_medium, { minWidth: wp(52) }]}>
-        <Text type="caption2" color={Colors.Text.GreySecondary}>
+        <Text
+          type="footnote"
+          fontWeight="bold"
+          color={Colors.Text.GreySecondary}>
           {label}
         </Text>
         <Text
-          type="subhead"
-          fontWeight="bold"
+          type="caption1"
           color={Colors.Text.Primary}
           style={{ flexShrink: 1 }}>
           {value}

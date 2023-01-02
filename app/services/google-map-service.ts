@@ -106,27 +106,34 @@ export const getRoutes = async (payload: {
 };
 
 export const getDirectionByCoordinates = async (payload: {
-  pickup: ICoordinates;
+  pickUp: ICoordinates;
   dropOff: ICoordinates;
 }) => {
-  const { pickup, dropOff } = payload;
+  const { pickUp, dropOff } = payload;
   try {
     const response = await axios.get(
-      `${GOOGLE_BASE_URL}/Routes?wp.0=${pickup.latitude}, ${pickup.longitude}&wp.1=${dropOff.latitude}, ${dropOff.longitude}&key=${GOOGLE_REST_API_KEY}`,
+      `${GOOGLE_BASE_URL}/Routes?wp.0=${pickUp.latitude}, ${pickUp.longitude}&wp.1=${dropOff.latitude}, ${dropOff.longitude}&key=${GOOGLE_REST_API_KEY}`,
     );
     const routeInfo = response.data.resourceSets[0].resources[0];
-    const { routeLegs } = routeInfo;
+    const { routeLegs, travelDuration, travelDistance } = routeInfo;
 
     const directions = routeLegs[0].itineraryItems.map(
       ({ instruction, maneuverPoint, travelDuration }) => ({
         type: instruction.maneuverType,
         text: instruction.text,
-        coordinates: maneuverPoint.coordinates,
+        coordinates: {
+          latitude: maneuverPoint.coordinates[0],
+          longitude: maneuverPoint.coordinates[1],
+        },
         travelDuration,
       }),
     );
 
-    return directions;
+    return {
+      directions: directions,
+      travelDuration,
+      travelDistance,
+    };
   } catch (error) {
     console.error(error);
     return null;

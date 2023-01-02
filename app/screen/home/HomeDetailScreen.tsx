@@ -71,6 +71,8 @@ const HomeDetailScreen = () => {
         <MapView
           initialRegion={initialRegion}
           zoomEnabled
+          rotateEnabled
+          pitchEnabled
           zoomControlEnabled
           style={[styles.flex_1]}>
           {currentLocation && currentLocation?.location && (

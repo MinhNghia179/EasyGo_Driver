@@ -1,7 +1,7 @@
 import { IUser } from '../../interfaces/auth-interface';
 import { IAddress } from '../../interfaces/home-interface';
 import apiClient from '../../services/api-client';
-import Socket from '../../services/socket-service';
+import { Socket } from '../../services/socket-service';
 
 export interface IAuthStore {
   portalUser: IUser;
@@ -37,7 +37,7 @@ const authStore = {
         const response = await apiClient.post(`/user/login`, payload);
         if (response.status === 200) {
           const sessionId = response.data.result.sessionId;
-          console.log(Socket(response.data.result.info.id));
+          dispatch.authStore.setSocket(Socket(response.data.result.info.id));
           apiClient.setSession(sessionId);
         }
         dispatch.authStore.setPortalUser(response.data.result.info);

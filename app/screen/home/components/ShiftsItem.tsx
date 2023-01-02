@@ -11,10 +11,11 @@ import CardItem from './CardItem';
 
 interface IProps {
   onNavigateShiftsDetail?: () => void;
+  shiftDetails: any;
 }
 
 const ShiftsItem = (props: IProps) => {
-  const { onNavigateShiftsDetail } = props;
+  const { onNavigateShiftsDetail, shiftDetails } = props;
 
   return (
     <View
@@ -53,16 +54,13 @@ const ShiftsItem = (props: IProps) => {
         </View>
         <View style={[styles.flex_col, styles.alg_end]}>
           <Text fontWeight="bold" type="subhead">
-            $20.00
-          </Text>
-          <Text type="caption1" color={Colors.Text.GreySecondary}>
-            2.2 km
+            $ {shiftDetails?.totalPrice}
           </Text>
         </View>
       </TouchableOpacity>
       <View style={[styles.p_medium]}>
-        <CardItem label="PICK UP" value="68 cầu giấy" />
-        <CardItem label="DROP OFF" value="219 trung kính" />
+        <CardItem label="PICK UP" value={shiftDetails?.pickUp?.fullAddress} />
+        <CardItem label="DROP OFF" value={shiftDetails?.dropOff?.fullAddress} />
         <View style={[styles.flex_row, styles.jus_end]}>
           <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
             Ignore

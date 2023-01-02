@@ -5,10 +5,12 @@ import {
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
+import { useSelector } from 'react-redux';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
 import { HomeStackRoute } from '../../constants/constant';
 import navigationService from '../../navigation/navigation-service';
+import { IRootState } from '../../redux/root-store';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
 import ShiftsItem from './components/ShiftsItem';
@@ -19,6 +21,10 @@ interface IProps {
 
 const NewRequestListingScreen = (props: IProps) => {
   const { navigation } = props;
+
+  const { shiftDetails } = useSelector((state: IRootState) => ({
+    shiftDetails: state.homeStore.shiftDetails,
+  }));
 
   return (
     <SafeAreaContainer
@@ -42,16 +48,13 @@ const NewRequestListingScreen = (props: IProps) => {
       <ScrollView>
         <View style={[styles.p_medium]}>
           <ShiftsItem
+            shiftDetails={shiftDetails}
             onNavigateShiftsDetail={() =>
-              navigationService.navigate(HomeStackRoute.SHIFTS_ITEM_DETAIL, {})
+              navigationService.navigate(HomeStackRoute.SHIFTS_ITEM_DETAIL, {
+                shiftDetails,
+              })
             }
           />
-          <ShiftsItem />
-          <ShiftsItem />
-          <ShiftsItem />
-          <ShiftsItem />
-          <ShiftsItem />
-          <ShiftsItem />
         </View>
       </ScrollView>
     </SafeAreaContainer>

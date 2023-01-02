@@ -15,3 +15,10 @@ export interface IRouteInfo {
   travelDurationTraffic: number;
   routes: ICoordinates[];
 }
+
+export interface IShiftDetails {
+  pickUp: IAddress;
+  dropOff: IAddress;
+  totalPrice: number;
+  notes: string;
+}
