@@ -6,7 +6,7 @@ import IconSizes from '../../../styles/icon-size';
 import styles from '../../../styles/style-sheet';
 
 interface IProps {
-  direction: 'TurnRight' | 'TurnLeft';
+  direction: string;
 }
 
 const DirectionIcon = (props: IProps) => {
@@ -21,6 +21,21 @@ const DirectionIcon = (props: IProps) => {
     case 'TurnLeft': {
       iconName = 'corner-up-left';
       break;
+    }
+    case 'UTurn': {
+      iconName = 'rotate-ccw';
+      break;
+    }
+    case 'DepartStart': {
+      iconName = 'alert-circle';
+      break;
+    }
+    case 'ArriveFinish': {
+      iconName = 'anchor';
+      break;
+    }
+    default: {
+      iconName = 'crop';
     }
   }
   return (
