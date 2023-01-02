@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LinkButton from '../../../components/Button/LinkButton';
 import PrimaryButton from '../../../components/Button/PrimaryButton';
 import InputText from '../../../components/Input/InputText';
 import { Text } from '../../../components/Text';
 import { HomeStackRoute, LoginStackRoute } from '../../../constants/constant';
 import navigationService from '../../../navigation/navigation-service';
-import { IRootDispatch } from '../../../redux/root-store';
+import { IRootDispatch, IRootState } from '../../../redux/root-store';
 import { Colors } from '../../../styles/colors';
 import IconSizes from '../../../styles/icon-size';
 import styles from '../../../styles/style-sheet';
@@ -29,6 +29,11 @@ const FormLogin = (props: IProps) => {
   const { onSelectLoginWithPhoneNumber } = props;
 
   const dispatch = useDispatch<IRootDispatch>();
+
+  const { portalUser, socket } = useSelector((state: IRootState) => ({
+    portalUser: state.authStore.portalUser,
+    socket: state.authStore.socket,
+  }));
 
   const [emailAddress, setEmailAddress] = useState<string>('vinh@gmail.com');
   const [password, setPassword] = useState<string>('123456789');
