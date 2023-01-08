@@ -2,7 +2,10 @@ import { cleanEnv, str } from 'envalid';
 
 let envs = cleanEnv(process.env, {
   REACT_APP_API_URL: str({
-    devDefault: 'http://13.127.11.84:8085',
+    devDefault: 'http://135.181.200.49:8085',
+  }),
+  REACT_APP_SOCKET_API_URL: str({
+    devDefault: 'http://135.181.200.49:8086',
   }),
   REACT_APP_GOOGLE_API_KEY: str({
     devDefault:
@@ -21,3 +24,4 @@ export const API_URL = envs.REACT_APP_API_URL;
 export const GOOGLE_API_KEY = envs.REACT_APP_GOOGLE_API_KEY;
 export const GOOGLE_REST_API_KEY = envs.REACT_APP_GOOGLE_REST_API_KEY;
 export const GOOGLE_BASE_URL = envs.REACT_APP_GOOGLE_BASE_URL;
+export const SOCKET_API_URL = envs.REACT_APP_SOCKET_API_URL;

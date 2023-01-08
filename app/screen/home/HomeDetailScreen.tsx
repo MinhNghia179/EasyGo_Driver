@@ -29,8 +29,9 @@ const HomeDetailScreen = () => {
 
   const [stateUser, setStateUser] = useState<boolean>(false);
 
-  const { currentLocation } = useSelector((state: IRootState) => ({
+  const { currentLocation, socket } = useSelector((state: IRootState) => ({
     currentLocation: state.authStore.currentLocation,
+    socket: state.authStore.socket,
   }));
 
   const initialRegion = {
@@ -52,6 +53,8 @@ const HomeDetailScreen = () => {
   };
 
   const doNotAllow = () => {};
+
+  console.log('Log', socket);
 
   return (
     <SafeAreaContainer

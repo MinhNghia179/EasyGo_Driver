@@ -1,7 +1,8 @@
 import { connect } from 'socket.io-client';
+import { SOCKET_API_URL } from '../variables/app-config';
 
 export const Socket = (userId: string) => {
-  const socket = connect('http://13.127.11.84:8086', {
+  const socket = connect(SOCKET_API_URL, {
     transports: ['websocket'],
   });
   console.log('Start connecting...');
