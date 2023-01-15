@@ -35,9 +35,11 @@ const authStore = {
     async doSignIn(payload: { email: string; password: string }) {
       try {
         const response = await apiClient.post(`/user/login`, payload);
+        const userId = response.data.result.info.id;
+
         if (response.status === 200) {
           const sessionId = response.data.result.sessionId;
-          dispatch.authStore.setSocket(Socket(response.data.result.info.id));
+          dispatch.authStore.setSocket(Socket(userId));
           apiClient.setSession(sessionId);
         }
         dispatch.authStore.setPortalUser(response.data.result.info);
