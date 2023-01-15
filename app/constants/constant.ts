@@ -21,4 +21,18 @@ const AccountStackRoute = {
   DASHBOARD: 'Dashboard',
 };
 
-export { Route, HomeStackRoute, LoginStackRoute, AccountStackRoute };
+const SocketEvent = {
+  AUTH: 'auth',
+  CONNECT: 'connect',
+  DISCONNECT: 'disconnect',
+  SEND_BOOKING: 'send_booking',
+  SEND_DRIVER_INFO: 'send_driver',
+};
+
+export {
+  Route,
+  HomeStackRoute,
+  LoginStackRoute,
+  AccountStackRoute,
+  SocketEvent,
+};

@@ -7,7 +7,6 @@ import {
   NavigationState,
 } from 'react-navigation';
 import { Avatar } from '../../components/Avatar';
-import GhostButton from '../../components/Button/GhostButton';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
@@ -93,7 +92,7 @@ const ShiftsItemDetail = (props: IProps) => {
                 styles.jus_between,
                 styles.p_medium,
                 {
-                  backgroundColor: Colors.Grey100,
+                  backgroundColor: Colors.Orange500,
                 },
               ]}>
               <View style={[styles.flex_row]}>
@@ -136,19 +135,6 @@ const ShiftsItemDetail = (props: IProps) => {
                 label="Notes"
                 value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
               />
-            </View>
-            <Text type="footnote" color={Colors.Text.GreySecondary}>
-              Trip Fare
-            </Text>
-            <View
-              style={[styles.flex_row, styles.jus_between, styles.p_medium]}>
-              <PrimaryButton color={Colors.Green} onPress={() => {}}>
-                Call
-              </PrimaryButton>
-              <PrimaryButton onPress={() => {}}>Message</PrimaryButton>
-              <GhostButton color={Colors.Grey500} onPress={() => {}}>
-                Cancel
-              </GhostButton>
             </View>
           </View>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Switch } from 'react-native-elements';
 import MapView, { Marker } from 'react-native-maps';
@@ -9,6 +9,7 @@ import PrimaryButton from '../../components/Button/PrimaryButton';
 import { ActionModal } from '../../components/Modal';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
+import { SocketEvent } from '../../constants/constant';
 import { IRootDispatch, IRootState } from '../../redux/root-store';
 import {
   currentPosition,
@@ -54,7 +55,9 @@ const HomeDetailScreen = () => {
 
   const doNotAllow = () => {};
 
-  console.log('Log', socket);
+  useEffect(() => {
+    socket?.on(SocketEvent.SEND_BOOKING, roomChats => console.log(roomChats));
+  }, [socket]);
 
   return (
     <SafeAreaContainer

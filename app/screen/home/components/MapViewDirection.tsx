@@ -26,7 +26,7 @@ const MapViewDirection = (props: IProps) => {
       style={[
         styles.flex_1,
         {
-          minHeight: 300,
+          minHeight: 200,
         },
       ]}>
       {pickUpLocation && pickUpLocation?.location && (
