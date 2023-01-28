@@ -7,12 +7,16 @@ export interface IAuthStore {
   portalUser: IUser;
   currentLocation: IAddress;
   socket: any;
+  activeStatus: boolean;
+  updatePositionEnabled: boolean;
 }
 
 const initialState: IAuthStore = {
   portalUser: null,
   currentLocation: null,
   socket: null,
+  activeStatus: true,
+  updatePositionEnabled: false,
 };
 
 const authStore = {
@@ -29,6 +33,14 @@ const authStore = {
     setSocket: (state: IAuthStore, payload: any) => ({
       ...state,
       socket: payload,
+    }),
+    setActiveStatus: (state: IAuthStore, payload: boolean) => ({
+      ...state,
+      activeStatus: payload,
+    }),
+    setUpdatePositionEnabled: (state: IAuthStore, payload: boolean) => ({
+      ...state,
+      updatePositionEnabled: payload,
     }),
   },
   effects: dispatch => ({

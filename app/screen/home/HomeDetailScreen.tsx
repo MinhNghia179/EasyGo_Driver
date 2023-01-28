@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
+import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import { Switch } from 'react-native-elements';
 import MapView, { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -28,12 +29,14 @@ const longDelta = 0.025;
 const HomeDetailScreen = () => {
   const dispatch = useDispatch<IRootDispatch>();
 
-  const [stateUser, setStateUser] = useState<boolean>(false);
-
-  const { currentLocation, socket } = useSelector((state: IRootState) => ({
-    currentLocation: state.authStore.currentLocation,
-    socket: state.authStore.socket,
-  }));
+  const { currentLocation, socket, activeStatus, newBookingData } = useSelector(
+    (state: IRootState) => ({
+      currentLocation: state.authStore.currentLocation,
+      socket: state.authStore.socket,
+      activeStatus: state.authStore.activeStatus,
+      newBookingData: state.bookingStore.newBookingData,
+    }),
+  );
 
   const initialRegion = {
     latitude: currentLocation?.location?.latitude || 21.030813822253087,
@@ -53,22 +56,38 @@ const HomeDetailScreen = () => {
     }
   };
 
+  const handleTakeBooking = async (newBooking: any) => {
+    Toast.show({
+      type: ALERT_TYPE.SUCCESS,
+      title: 'Acclaim!',
+      textBody:
+        "Congrats! You have received a vehicle order. Let's explore together",
+    });
+    dispatch.bookingStore.setNewBookingData([...newBookingData, newBooking]);
+  };
+
+  const handleChangeActiveStatus = () => {
+    dispatch.authStore.setActiveStatus(!activeStatus);
+  };
+
   const doNotAllow = () => {};
 
   useEffect(() => {
-    socket?.on(SocketEvent.SEND_BOOKING, roomChats => console.log(roomChats));
+    if (activeStatus) {
+      socket?.on(SocketEvent.SEND_BOOKING, data => handleTakeBooking(data));
+    }
   }, [socket]);
 
   return (
     <SafeAreaContainer
       title="Offline"
       leftIconName="back"
-      stickyTop={<StickyTopSection isOnline={stateUser} />}
-      stickyBottom={<StickyBottomSection />}
+      stickyTop={<StickyTopSection activeStatus={activeStatus} />}
+      stickyBottom={<StickyBottomSection newBookingData={newBookingData} />}
       right={
         <Switch
-          value={stateUser}
-          onValueChange={setStateUser}
+          value={activeStatus}
+          onValueChange={handleChangeActiveStatus}
           color={Colors.Orange500}
         />
       }

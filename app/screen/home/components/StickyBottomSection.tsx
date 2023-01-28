@@ -12,7 +12,9 @@ import { Colors } from '../../../styles/colors';
 import IconSizes from '../../../styles/icon-size';
 import styles from '../../../styles/style-sheet';
 
-interface IProps {}
+interface IProps {
+  newBookingData: any[];
+}
 
 interface IItemProps {
   label: string;
@@ -40,6 +42,8 @@ const Item = (props: IItemProps) => {
   );
 };
 const StickyBottomSection = (props: IProps) => {
+  const { newBookingData } = props;
+
   const { portalUser } = useSelector((state: IRootState) => ({
     portalUser: state.authStore.portalUser,
   }));
@@ -98,8 +102,8 @@ const StickyBottomSection = (props: IProps) => {
         <Item iconName="dashboard" label="TOTAL DISTANCE (KM)" value={30} />
         <Item
           iconName="exception1"
-          label="TOTAL JOBS"
-          value={20}
+          label={`TOTAL JOB${newBookingData?.length !== 1 && 'S'}`}
+          value={newBookingData?.length}
           onPress={navigateToNewRequestListing}
         />
       </View>

@@ -17,6 +17,8 @@ interface IProps {
 const ShiftsItem = (props: IProps) => {
   const { onNavigateShiftsDetail, shiftDetails } = props;
 
+  const handleAcceptBooking = () => {};
+
   return (
     <View
       style={[
@@ -48,7 +50,7 @@ const ShiftsItem = (props: IProps) => {
           />
           <View style={[styles.ml_small]}>
             <Text fontWeight="bold" type="subhead">
-              Connie
+              {shiftDetails?.userName}
             </Text>
           </View>
         </View>
@@ -59,8 +61,8 @@ const ShiftsItem = (props: IProps) => {
         </View>
       </TouchableOpacity>
       <View style={[styles.p_medium]}>
-        <CardItem label="PICK UP" value={shiftDetails?.pickUp?.fullAddress} />
-        <CardItem label="DROP OFF" value={shiftDetails?.dropOff?.fullAddress} />
+        <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
+        <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
         <View style={[styles.flex_row, styles.jus_end]}>
           <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
             Ignore
@@ -68,7 +70,7 @@ const ShiftsItem = (props: IProps) => {
           <PrimaryButton
             style={[styles.ml_small]}
             color={Colors.Yellow400}
-            onPress={() => {}}>
+            onPress={handleAcceptBooking}>
             Accept
           </PrimaryButton>
         </View>

@@ -7,11 +7,11 @@ import IconSizes from '../../../styles/icon-size';
 import styles from '../../../styles/style-sheet';
 
 interface IProps {
-  isOnline: boolean;
+  activeStatus: boolean;
 }
 
 const StickyTopSection = (props: IProps) => {
-  const { isOnline } = props;
+  const { activeStatus } = props;
   return (
     <View
       style={[
@@ -24,7 +24,7 @@ const StickyTopSection = (props: IProps) => {
       ]}>
       <Icon
         style={[styles.ph_small]}
-        name={isOnline ? 'day-sunny' : 'night-clear'}
+        name={activeStatus ? 'day-sunny' : 'night-clear'}
         color={Colors.Black}
         size={IconSizes.small}
       />
@@ -33,10 +33,10 @@ const StickyTopSection = (props: IProps) => {
           fontWeight="bold"
           type="footnote"
           color={Colors.Text.Primary}>{`You are ${
-          isOnline ? 'online' : 'offline'
+          activeStatus ? 'online' : 'offline'
         }!`}</Text>
         <Text type="footnote">
-          {isOnline
+          {activeStatus
             ? 'Customers are waiting for you. Let go...'
             : 'Go online to start accepting jobs'}
         </Text>

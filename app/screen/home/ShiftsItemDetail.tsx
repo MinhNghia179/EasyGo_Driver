@@ -47,8 +47,10 @@ const ShiftsItemDetail = (props: IProps) => {
     }
   };
 
+  const handleAcceptBooking = () => {};
+
   useEffect(() => {
-    const shiftDetails: IShiftDetails = route.params.shiftDetails;
+    const shiftDetails: any = route.params.shiftDetails;
     fetchDirectionByCoordinates(shiftDetails);
   }, [route.params]);
 
@@ -72,7 +74,8 @@ const ShiftsItemDetail = (props: IProps) => {
           <PrimaryButton
             disabled={isLoading}
             style={[styles.mt_small]}
-            color={Colors.Yellow500}>
+            color={Colors.Yellow500}
+            onPress={handleAcceptBooking}>
             Accept
           </PrimaryButton>
         </View>

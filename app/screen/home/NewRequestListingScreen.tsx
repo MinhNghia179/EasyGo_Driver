@@ -22,8 +22,8 @@ interface IProps {
 const NewRequestListingScreen = (props: IProps) => {
   const { navigation } = props;
 
-  const { shiftDetails } = useSelector((state: IRootState) => ({
-    shiftDetails: state.homeStore.shiftDetails,
+  const { newBookingData } = useSelector((state: IRootState) => ({
+    newBookingData: state.bookingStore.newBookingData,
   }));
 
   return (
@@ -40,21 +40,41 @@ const NewRequestListingScreen = (props: IProps) => {
             },
           ]}>
           <Text fontWeight="bold" type="caption1">
-            You have 10 new requests.
+            You have {newBookingData.length} new request
+            {newBookingData.length !== 1 && 's'}.
           </Text>
         </View>
       }
       leftIconOnPress={() => navigation.goBack()}>
       <ScrollView>
         <View style={[styles.p_medium]}>
-          <ShiftsItem
-            shiftDetails={shiftDetails}
-            onNavigateShiftsDetail={() =>
-              navigationService.navigate(HomeStackRoute.SHIFTS_ITEM_DETAIL, {
-                shiftDetails,
-              })
-            }
-          />
+          {!newBookingData.length ? (
+            <Text>
+              There are currently no orders. Don't forget to open your active
+              status to receive orders
+            </Text>
+          ) : (
+            <>
+              {newBookingData &&
+                newBookingData.length &&
+                newBookingData.map(one => {
+                  return (
+                    <ShiftsItem
+                      key={one?.id}
+                      shiftDetails={one}
+                      onNavigateShiftsDetail={() =>
+                        navigationService.navigate(
+                          HomeStackRoute.SHIFTS_ITEM_DETAIL,
+                          {
+                            shiftDetails: one,
+                          },
+                        )
+                      }
+                    />
+                  );
+                })}
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaContainer>
