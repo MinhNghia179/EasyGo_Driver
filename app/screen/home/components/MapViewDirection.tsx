@@ -13,8 +13,14 @@ interface IProps {
 const MapViewDirection = (props: IProps) => {
   const { shiftDetails } = props;
 
-  const pickUpLocation = shiftDetails?.pickUp;
-  const dropOffLocation = shiftDetails?.dropOff;
+  const pickUpLocation = {
+    latitude: shiftDetails?.latStartPoint,
+    longitude: shiftDetails?.lonStartPoint,
+  };
+  const dropOffLocation = {
+    latitude: shiftDetails?.latEndPoint,
+    longitude: shiftDetails?.lonEndPoint,
+  };
   const routes = shiftDetails?.directions?.map(({ coordinates }) => ({
     ...coordinates,
   }));
@@ -29,11 +35,11 @@ const MapViewDirection = (props: IProps) => {
           minHeight: 200,
         },
       ]}>
-      {pickUpLocation && pickUpLocation?.location && (
+      {!!pickUpLocation && (
         <Marker
-          coordinate={pickUpLocation?.location}
-          title={pickUpLocation.shortAddress}
-          description={pickUpLocation.fullAddress}>
+          coordinate={pickUpLocation}
+          title="Start"
+          description={shiftDetails?.nameStartPoint}>
           <Icon
             name="my-location"
             color={Colors.Blue300}
@@ -41,11 +47,11 @@ const MapViewDirection = (props: IProps) => {
           />
         </Marker>
       )}
-      {dropOffLocation && dropOffLocation?.location && (
+      {!!dropOffLocation && (
         <Marker
-          coordinate={dropOffLocation?.location}
-          title={dropOffLocation.shortAddress}
-          description={dropOffLocation.fullAddress}>
+          coordinate={dropOffLocation}
+          title="End"
+          description={shiftDetails?.nameEndPoint}>
           <Icon
             name="my-location"
             color={Colors.Blue300}
@@ -53,7 +59,7 @@ const MapViewDirection = (props: IProps) => {
           />
         </Marker>
       )}
-      {pickUpLocation?.location && dropOffLocation?.location && (
+      {!!pickUpLocation && (
         <Polyline
           coordinates={routes || []}
           strokeColor={Colors.Orange500}

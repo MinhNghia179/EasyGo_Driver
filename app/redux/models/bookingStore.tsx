@@ -2,10 +2,12 @@ import apiClient from '../../services/api-client';
 
 export interface IBookingStore {
   newBookingData: any;
+  trackBookingId: string;
 }
 
 const initialState: IBookingStore = {
   newBookingData: [{}],
+  trackBookingId: '',
 };
 
 const bookingStore = {
@@ -15,11 +17,22 @@ const bookingStore = {
       ...state,
       newBookingData: payload,
     }),
+    setTrackBookingId: (state: IBookingStore, payload: string) => ({
+      ...state,
+      trackBookingId: payload,
+    }),
   },
   effects: dispatch => ({
-    async doAcceptBooking(payload: any) {
+    async doAcceptBooking(payload: { bookingId: string }) {
       try {
-        const response = await apiClient.post(`/user/login`, payload);
+        return await apiClient.post(`/booking/acceptBooking`, payload);
+      } catch (error) {
+        throw error;
+      }
+    },
+    async doFinishBooking(payload: { bookingId: string }) {
+      try {
+        return await apiClient.post(`/booking/finishBooking`, payload);
       } catch (error) {
         throw error;
       }

@@ -1,18 +1,23 @@
 import { useRoute } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { isEmpty } from 'lodash';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
+import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
+import Geolocation from 'react-native-geolocation-service';
 import {
   NavigationParams,
   NavigationScreenProp,
   NavigationState,
 } from 'react-navigation';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '../../components/Avatar';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
-import { HomeStackRoute } from '../../constants/constant';
-import { IShiftDetails } from '../../interfaces/home-interface';
+import { HomeStackRoute, SocketEvent } from '../../constants/constant';
 import navigationService from '../../navigation/navigation-service';
+import { IRootDispatch, IRootState } from '../../redux/root-store';
+import { config } from '../../services/geolocation-service';
 import { getDirectionByCoordinates } from '../../services/google-map-service';
 import { wp } from '../../services/response-screen-service';
 import { Colors } from '../../styles/colors';
@@ -25,33 +30,119 @@ interface IProps {
 }
 
 const ShiftsItemDetail = (props: IProps) => {
+  const dispatch = useDispatch<IRootDispatch>();
+
   const { navigation } = props;
+  const { socket, trackBookingId } = useSelector((state: IRootState) => ({
+    socket: state.authStore.socket,
+    trackBookingId: state.bookingStore.trackBookingId,
+  }));
+  let watchId = useRef<number | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [shiftDetails, setShiftDetails] = useState<any>(null);
 
   const route: any = useRoute();
 
-  const fetchDirectionByCoordinates = async (shiftDetails: IShiftDetails) => {
+  const stopLocationUpdates = async () => {
+    if (watchId.current !== null) {
+      Geolocation.clearWatch(watchId.current);
+      watchId.current = null;
+    }
+  };
+
+  const clearState = () => {
+    dispatch.bookingStore.setTrackBookingId('');
+    dispatch.bookingStore.setNewBookingData([]);
+  };
+
+  const getLocationUpdates = async () => {
+    watchId.current = Geolocation.watchPosition(
+      position => {
+        socket?.emit(SocketEvent.TRACK, {
+          latitude: position?.coords?.latitude,
+          longitude: position?.coords?.longitude,
+        });
+      },
+      error => {
+        console.error(error);
+      },
+      config,
+    );
+  };
+
+  const handleFinishBooking = async () => {
     setIsLoading(true);
     try {
-      const payload = {
-        pickUp: shiftDetails?.pickUp?.location,
-        dropOff: shiftDetails?.dropOff?.location,
-      };
-      const response = await getDirectionByCoordinates(payload);
-      setShiftDetails({ ...response, ...shiftDetails });
+      const response = await dispatch.bookingStore.doFinishBooking({
+        bookingId: shiftDetails?.id,
+      });
+      if (response.status === 200) {
+        Toast.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: 'Successfully!',
+          textBody: 'Successfully!. The ride is completed',
+        });
+        stopLocationUpdates();
+        clearState();
+        navigationService.navigate(HomeStackRoute.DASHBOARD, {});
+      }
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleAcceptBooking = () => {};
+  const fetchDirectionByCoordinates = async (shiftDetails: any) => {
+    setIsLoading(true);
+    try {
+      const payload = {
+        pickUp: {
+          latitude: shiftDetails?.latStartPoint,
+          longitude: shiftDetails?.lonStartPoint,
+        },
+        dropOff: {
+          latitude: shiftDetails?.latEndPoint,
+          longitude: shiftDetails?.lonEndPoint,
+        },
+      };
+      const response = await getDirectionByCoordinates(payload);
+      setShiftDetails({ ...response, ...shiftDetails });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAcceptBooking = async () => {
+    setIsLoading(true);
+    try {
+      const response = await dispatch.bookingStore.doAcceptBooking({
+        bookingId: shiftDetails?.id,
+      });
+      if (response.status === 200) {
+        dispatch.bookingStore.setTrackBookingId(shiftDetails?.id);
+        Toast.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: 'Successfully!',
+          textBody: "Successfully. Let's go, customers are waiting.",
+        });
+        getLocationUpdates();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const shiftDetails: any = route.params.shiftDetails;
-    fetchDirectionByCoordinates(shiftDetails);
+    const shiftDetails: any = route?.params?.shiftDetails;
+    if (!isEmpty(shiftDetails)) {
+      fetchDirectionByCoordinates(shiftDetails);
+    }
   }, [route.params]);
 
   return (
@@ -62,22 +153,34 @@ const ShiftsItemDetail = (props: IProps) => {
       leftIconOnPress={() => navigation.goBack()}
       stickyBottom={
         <View style={[styles.p_medium, styles.bg_white]}>
-          <PrimaryButton
-            disabled={isLoading}
-            onPress={() =>
-              navigationService.navigate(HomeStackRoute.WIZARD_DETAIL, {
-                shiftDetails,
-              })
-            }>
-            See wizard details
-          </PrimaryButton>
-          <PrimaryButton
-            disabled={isLoading}
-            style={[styles.mt_small]}
-            color={Colors.Yellow500}
-            onPress={handleAcceptBooking}>
-            Accept
-          </PrimaryButton>
+          {trackBookingId === shiftDetails?.id && (
+            <PrimaryButton
+              disabled={isLoading}
+              onPress={() =>
+                navigationService.navigate(HomeStackRoute.WIZARD_DETAIL, {
+                  shiftDetails,
+                })
+              }>
+              See wizard details
+            </PrimaryButton>
+          )}
+          {trackBookingId === shiftDetails?.id ? (
+            <PrimaryButton
+              disabled={isLoading}
+              style={[styles.mt_small]}
+              color={Colors.Green500}
+              onPress={handleFinishBooking}>
+              Finish booking
+            </PrimaryButton>
+          ) : (
+            <PrimaryButton
+              disabled={isLoading}
+              style={[styles.mt_small]}
+              color={Colors.Yellow500}
+              onPress={handleAcceptBooking}>
+              Accept booking
+            </PrimaryButton>
+          )}
         </View>
       }>
       <ScrollView>
@@ -109,7 +212,7 @@ const ShiftsItemDetail = (props: IProps) => {
                 />
                 <View style={[styles.ml_small]}>
                   <Text fontWeight="bold" type="subhead">
-                    Connie
+                    {shiftDetails?.userName}
                   </Text>
                 </View>
               </View>
@@ -123,21 +226,12 @@ const ShiftsItemDetail = (props: IProps) => {
               </View>
             </View>
             <View style={[styles.p_small]}>
-              <CardItem
-                label="PICK UP"
-                value={shiftDetails?.pickUp?.fullAddress}
-              />
-              <CardItem
-                label="DROP OFF"
-                value={shiftDetails?.dropOff?.fullAddress}
-              />
+              <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
+              <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
             </View>
             <MapViewDirection shiftDetails={shiftDetails} />
             <View style={[styles.mv_small]}>
-              <CardItem
-                label="Notes"
-                value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-              />
+              <CardItem label="Notes" value={shiftDetails?.notes} />
             </View>
           </View>
         )}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Avatar } from '../../../components/Avatar';
-import PrimaryButton from '../../../components/Button/PrimaryButton';
 import SecondaryButton from '../../../components/Button/SecondaryButton';
 import { Text } from '../../../components/Text';
 import { wp } from '../../../services/response-screen-service';
@@ -16,8 +15,6 @@ interface IProps {
 
 const ShiftsItem = (props: IProps) => {
   const { onNavigateShiftsDetail, shiftDetails } = props;
-
-  const handleAcceptBooking = () => {};
 
   return (
     <View
@@ -63,17 +60,6 @@ const ShiftsItem = (props: IProps) => {
       <View style={[styles.p_medium]}>
         <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
         <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
-        <View style={[styles.flex_row, styles.jus_end]}>
-          <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
-            Ignore
-          </SecondaryButton>
-          <PrimaryButton
-            style={[styles.ml_small]}
-            color={Colors.Yellow400}
-            onPress={handleAcceptBooking}>
-            Accept
-          </PrimaryButton>
-        </View>
       </View>
     </View>
   );

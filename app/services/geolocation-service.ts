@@ -2,7 +2,7 @@ import { PermissionsAndroid } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import { ICoordinates } from '../interfaces/home-interface';
 
-const config = {
+export const config = {
   enableHighAccuracy: true,
   distanceFilter: 0,
   interval: 5000,
