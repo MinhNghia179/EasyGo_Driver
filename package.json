@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build": "cd android && gradlew clean app:assembleRelease -x bundleReleaseJsAndAssets --info"
   },
   "dependencies": {
     "react": "18.1.0",
@@ -31,6 +32,7 @@
     "react-native-date-picker": "^4.2.5",
     "react-native-device-info": "^8.7.1",
     "react-native-fast-image": "^8.6.1",
+    "react-native-alert-notification": "^0.3.4",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.4.2",
     "react-native-linear-gradient": "^2.6.2",
@@ -49,12 +51,11 @@
     "react-native-simple-bottom-sheet": "^1.0.3",
     "react-native-skeleton-placeholder": "^5.0.0",
     "react-native-toast-message": "^2.1.5",
-    "react-native-ui-lib": "^6.14.1",
     "react-native-vector-icons": "^9.2.0",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
-    "socket.io-client": "^4.5.4",
+    "socket.io-client": "2.1.1",
     "uuid": "^8.3.2",
     "yarn": "^1.22.19"
   },
