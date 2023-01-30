@@ -102,7 +102,7 @@ const StickyBottomSection = (props: IProps) => {
         <Item iconName="dashboard" label="TOTAL DISTANCE (KM)" value={30} />
         <Item
           iconName="exception1"
-          label={`TOTAL JOB${newBookingData?.length !== 1 && 'S'}`}
+          label="TOTAL JOBS"
           value={newBookingData?.length}
           onPress={navigateToNewRequestListing}
         />

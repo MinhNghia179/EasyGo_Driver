@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '../../components/Avatar';
 import PrimaryButton from '../../components/Button/PrimaryButton';
+import SecondaryButton from '../../components/Button/SecondaryButton';
 import { Text } from '../../components/Text';
 import { SafeAreaContainer } from '../../components/View';
 import { HomeStackRoute, SocketEvent } from '../../constants/constant';
@@ -169,6 +170,9 @@ const ShiftsItemDetail = (props: IProps) => {
               See wizard details
             </PrimaryButton>
           )}
+          <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
+            Ignore booking
+          </SecondaryButton>
           {trackBookingId === shiftDetails?.id ? (
             <PrimaryButton
               disabled={isLoading}

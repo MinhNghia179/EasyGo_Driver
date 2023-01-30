@@ -43,9 +43,8 @@ const BookingStatusLabel = (props: IProps) => {
         styles.flex_row,
         styles.alg_center,
         styles.mv_x_small,
-        styles.rounded_full,
         styles.jus_center,
-        styles.p_x_small,
+        styles.p_small,
         {
           backgroundColor: labelColor,
           minWidth: wp(52),
