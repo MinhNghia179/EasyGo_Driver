@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native';
-import { isEmpty } from 'lodash';
+import { isEmpty, round } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, ScrollView, View } from 'react-native';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
@@ -23,6 +23,7 @@ import { wp } from '../../services/response-screen-service';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
 import CardItem from './components/CardItem';
+import DirectionIcon from './components/DirectionIcon';
 import MapViewDirection from './components/MapViewDirection';
 
 interface IProps {
@@ -40,6 +41,7 @@ const ShiftsItemDetail = (props: IProps) => {
   let watchId = useRef<number | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [location, setLocation] = useState<any>(null);
   const [shiftDetails, setShiftDetails] = useState<any>(null);
 
   const route: any = useRoute();
@@ -59,10 +61,12 @@ const ShiftsItemDetail = (props: IProps) => {
   const getLocationUpdates = async () => {
     watchId.current = Geolocation.watchPosition(
       position => {
-        socket?.emit(SocketEvent.TRACK, {
+        const coordinates = {
           latitude: position?.coords?.latitude,
           longitude: position?.coords?.longitude,
-        });
+        };
+        setLocation(coordinates);
+        socket?.emit(SocketEvent.TRACK, coordinates);
       },
       error => {
         console.error(error);
@@ -197,6 +201,7 @@ const ShiftsItemDetail = (props: IProps) => {
                 styles.alg_center,
                 styles.jus_between,
                 styles.p_medium,
+                styles.bb_small,
                 {
                   backgroundColor: Colors.Orange500,
                 },
@@ -225,13 +230,74 @@ const ShiftsItemDetail = (props: IProps) => {
                 </Text>
               </View>
             </View>
-            <View style={[styles.p_small]}>
+            <View style={[styles.pv_small]}>
               <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
               <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
-            </View>
-            <MapViewDirection shiftDetails={shiftDetails} />
-            <View style={[styles.mv_small]}>
               <CardItem label="Notes" value={shiftDetails?.notes} />
+            </View>
+            <View
+              style={[
+                styles.rounded,
+                styles.b_medium,
+                {
+                  borderColor: Colors.Blue300,
+                },
+              ]}>
+              <MapViewDirection
+                location={location}
+                shiftDetails={shiftDetails}
+              />
+            </View>
+            <View style={[styles.mv_small]}>
+              <CardItem label="TRAVEL ROUTE DETAILS" />
+              {shiftDetails?.directions?.length ? (
+                shiftDetails?.directions?.map((one, index) => (
+                  <View
+                    key={index}
+                    style={[
+                      styles.flex_row,
+                      styles.alg_start,
+                      styles.p_small,
+                      {
+                        backgroundColor:
+                          index % 2 ? Colors.Grey400 : Colors.Grey200,
+                      },
+                    ]}>
+                    <DirectionIcon direction={one.type} />
+                    <View
+                      style={[
+                        styles.flex_1,
+                        {
+                          borderColor: Colors.Black,
+                        },
+                      ]}>
+                      <Text
+                        fontWeight="bold"
+                        type="footnote"
+                        numberOfLines={1}
+                        color={index % 2 ? Colors.White : Colors.Black}>
+                        {one.text}
+                      </Text>
+                      <View
+                        style={[
+                          styles.mt_small,
+                          styles.flex_row,
+                          styles.jus_between,
+                        ]}>
+                        <Text type="caption1">{one.distance} km</Text>
+                        <Text type="caption1">
+                          {round(one.travelDuration / 60, 2)} minutes{' '}
+                        </Text>
+                        <Text type="caption1">
+                          {round(one.realTimeTransitDelay / 60, 2)} minutes
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))
+              ) : (
+                <Text>Not Direction</Text>
+              )}
             </View>
           </View>
         )}

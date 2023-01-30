@@ -6,7 +6,7 @@ export interface IBookingStore {
 }
 
 const initialState: IBookingStore = {
-  newBookingData: [{}],
+  newBookingData: [],
   trackBookingId: '',
 };
 

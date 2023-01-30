@@ -7,7 +7,7 @@ import styles from '../../../styles/style-sheet';
 
 interface IProps {
   label: string;
-  value: string;
+  value?: string;
 }
 const CardItem = (props: IProps) => {
   const { label, value } = props;
@@ -23,18 +23,15 @@ const CardItem = (props: IProps) => {
         },
       ]}>
       <View style={[styles.mr_medium, { minWidth: wp(52) }]}>
-        <Text
-          type="footnote"
-          fontWeight="bold"
-          color={Colors.Text.GreySecondary}>
+        <Text type="footnote" fontWeight="bold" color={Colors.Black}>
           {label}
         </Text>
-        <Text
-          type="caption1"
-          color={Colors.Text.Primary}
-          style={{ flexShrink: 1 }}>
-          {value}
-        </Text>
+
+        {!!value && (
+          <Text type="caption1" color={Colors.Text.Primary}>
+            {value}
+          </Text>
+        )}
       </View>
     </View>
   );

@@ -118,14 +118,22 @@ export const getDirectionByCoordinates = async (payload: {
     const { routeLegs, travelDuration, travelDistance } = routeInfo;
 
     const directions = routeLegs[0].itineraryItems.map(
-      ({ instruction, maneuverPoint, travelDuration }) => ({
+      ({
+        instruction,
+        maneuverPoint,
+        travelDuration,
+        travelDistance,
+        realTimeTransitDelay,
+      }) => ({
         type: instruction.maneuverType,
         text: instruction.text,
         coordinates: {
           latitude: maneuverPoint.coordinates[0],
           longitude: maneuverPoint.coordinates[1],
         },
+        realTimeTransitDelay,
         travelDuration,
+        distance: travelDistance,
       }),
     );
 
