@@ -30,10 +30,18 @@ const SocketEvent = {
   TRACK: 'track',
 };
 
+const BookingStatus = {
+  CREATED: 'CREATED',
+  ACCEPT: 'ACCEPT',
+  REJECT: 'REJECT',
+  SUCCESS: 'SUCCESS',
+};
+
 export {
   Route,
   HomeStackRoute,
   LoginStackRoute,
   AccountStackRoute,
   SocketEvent,
+  BookingStatus,
 };

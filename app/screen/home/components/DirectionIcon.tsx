@@ -7,10 +7,11 @@ import styles from '../../../styles/style-sheet';
 
 interface IProps {
   direction: string;
+  color: Colors;
 }
 
 const DirectionIcon = (props: IProps) => {
-  const { direction } = props;
+  const { direction, color } = props;
   let iconName = '';
 
   switch (direction) {
@@ -40,7 +41,7 @@ const DirectionIcon = (props: IProps) => {
   }
   return (
     <View style={[styles.mh_small]}>
-      <Icon name={iconName} size={IconSizes.x_small} color={Colors.Black} />
+      <Icon name={iconName} size={IconSizes.x_small} color={color} />
     </View>
   );
 };

@@ -22,6 +22,7 @@ import { getDirectionByCoordinates } from '../../services/google-map-service';
 import { wp } from '../../services/response-screen-service';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
+import BookingStatusLabel from './components/BookingStatusLabel';
 import CardItem from './components/CardItem';
 import DirectionIcon from './components/DirectionIcon';
 import MapViewDirection from './components/MapViewDirection';
@@ -230,11 +231,25 @@ const ShiftsItemDetail = (props: IProps) => {
                 </Text>
               </View>
             </View>
-            <View style={[styles.pv_small]}>
-              <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
-              <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
+            <View style={[styles.flex_row, styles.jus_between]}>
+              <CardItem label="BOOKING INFO" />
+              <BookingStatusLabel value={shiftDetails?.status} />
+            </View>
+            <View
+              style={[
+                styles.ph_small,
+                styles.mv_small,
+                styles.b_medium,
+                styles.rounded,
+                {
+                  borderColor: Colors.Blue200,
+                },
+              ]}>
+              <CardItem label="Pick up" value={shiftDetails?.nameStartPoint} />
+              <CardItem label="Drop off" value={shiftDetails?.nameEndPoint} />
               <CardItem label="Notes" value={shiftDetails?.notes} />
             </View>
+            <CardItem label="VIEW GOOGLE MAP" />
             <View
               style={[
                 styles.rounded,
@@ -250,54 +265,68 @@ const ShiftsItemDetail = (props: IProps) => {
             </View>
             <View style={[styles.mv_small]}>
               <CardItem label="TRAVEL ROUTE DETAILS" />
-              {shiftDetails?.directions?.length ? (
-                shiftDetails?.directions?.map((one, index) => (
-                  <View
-                    key={index}
-                    style={[
-                      styles.flex_row,
-                      styles.alg_start,
-                      styles.p_small,
-                      {
-                        backgroundColor:
-                          index % 2 ? Colors.Grey400 : Colors.Grey200,
-                      },
-                    ]}>
-                    <DirectionIcon direction={one.type} />
+              <View
+                style={[
+                  styles.b_medium,
+                  styles.rounded,
+                  {
+                    borderColor: Colors.Orange300,
+                  },
+                ]}>
+                {shiftDetails?.directions?.length ? (
+                  shiftDetails?.directions?.map((one, index) => (
                     <View
+                      key={index}
                       style={[
-                        styles.flex_1,
+                        styles.flex_row,
+                        styles.alg_center,
+                        styles.p_small,
                         {
-                          borderColor: Colors.Black,
+                          backgroundColor:
+                            index % 2 ? Colors.Grey400 : Colors.Grey200,
                         },
                       ]}>
-                      <Text
-                        fontWeight="bold"
-                        type="footnote"
-                        numberOfLines={1}
-                        color={index % 2 ? Colors.White : Colors.Black}>
-                        {one.text}
-                      </Text>
+                      <DirectionIcon
+                        direction={one.type}
+                        color={index % 2 ? Colors.White : Colors.Black}
+                      />
                       <View
                         style={[
-                          styles.mt_small,
-                          styles.flex_row,
-                          styles.jus_between,
+                          styles.flex_1,
+                          {
+                            borderColor: Colors.Black,
+                          },
                         ]}>
-                        <Text type="caption1">{one.distance} km</Text>
-                        <Text type="caption1">
-                          {round(one.travelDuration / 60, 2)} minutes{' '}
+                        <Text
+                          fontWeight="bold"
+                          type="footnote"
+                          numberOfLines={1}
+                          color={index % 2 ? Colors.White : Colors.Black}>
+                          {one.text}
                         </Text>
-                        <Text type="caption1">
-                          {round(one.realTimeTransitDelay / 60, 2)} minutes
-                        </Text>
+                        <View
+                          style={[
+                            styles.mt_small,
+                            styles.flex_row,
+                            styles.jus_between,
+                          ]}>
+                          <Text type="caption2" fontWeight="bold">
+                            {one.distance} km
+                          </Text>
+                          <Text type="caption2" fontWeight="bold">
+                            {round(one.travelDuration / 60, 2)} minutes{' '}
+                          </Text>
+                          <Text type="caption2">
+                            {round(one.realTimeTransitDelay / 60, 2)} minutes
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                ))
-              ) : (
-                <Text>Not Direction</Text>
-              )}
+                  ))
+                ) : (
+                  <Text>Not Direction</Text>
+                )}
+              </View>
             </View>
           </View>
         )}
