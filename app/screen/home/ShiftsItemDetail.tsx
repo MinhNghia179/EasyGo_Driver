@@ -7,7 +7,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {
   NavigationParams,
   NavigationScreenProp,
-  NavigationState,
+  NavigationState
 } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '../../components/Avatar';
@@ -43,6 +43,7 @@ const ShiftsItemDetail = (props: IProps) => {
   let watchId = useRef<number | null>(null);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [location, setLocation] = useState<any>(null);
   const [shiftDetails, setShiftDetails] = useState<any>(null);
 
@@ -94,7 +95,11 @@ const ShiftsItemDetail = (props: IProps) => {
         navigationService.navigate(HomeStackRoute.DASHBOARD, {});
       }
     } catch (error) {
-      console.error(error);
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error!',
+        textBody: 'Oops, something went wrong! Please try again.',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +128,7 @@ const ShiftsItemDetail = (props: IProps) => {
   };
 
   const handleAcceptBooking = async () => {
-    setIsLoading(true);
+    setIsSubmitting(true);
     try {
       const response = await dispatch.bookingStore.doAcceptBooking({
         bookingId: shiftDetails?.id,
@@ -138,9 +143,13 @@ const ShiftsItemDetail = (props: IProps) => {
         getLocationUpdates();
       }
     } catch (error) {
-      console.error(error);
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error!',
+        textBody: 'Oops, something went wrong! Please try again.',
+      });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -161,7 +170,7 @@ const ShiftsItemDetail = (props: IProps) => {
         <View style={[styles.p_medium, styles.bg_white]}>
           {trackBookingId === shiftDetails?.id && (
             <PrimaryButton
-              disabled={isLoading}
+              disabled={isSubmitting}
               onPress={() =>
                 navigationService.navigate(HomeStackRoute.WIZARD_DETAIL, {
                   shiftDetails,
@@ -170,12 +179,12 @@ const ShiftsItemDetail = (props: IProps) => {
               See wizard details
             </PrimaryButton>
           )}
-          <SecondaryButton color={Colors.Text.GreySecondary} onPress={() => {}}>
+          <SecondaryButton color={Colors.Text.GreySecondary} disabled={isSubmitting} onPress={() => {}}>
             Ignore booking
           </SecondaryButton>
           {trackBookingId === shiftDetails?.id ? (
             <PrimaryButton
-              disabled={isLoading}
+              disabled={isSubmitting}
               style={[styles.mt_small]}
               color={Colors.Green500}
               onPress={handleFinishBooking}>
@@ -183,7 +192,7 @@ const ShiftsItemDetail = (props: IProps) => {
             </PrimaryButton>
           ) : (
             <PrimaryButton
-              disabled={isLoading}
+              loading={isSubmitting}
               style={[styles.mt_small]}
               color={Colors.Yellow500}
               onPress={handleAcceptBooking}>

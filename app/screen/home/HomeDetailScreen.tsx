@@ -14,7 +14,7 @@ import { SocketEvent } from '../../constants/constant';
 import { IRootDispatch, IRootState } from '../../redux/root-store';
 import {
   currentPosition,
-  requestLocationPermission,
+  requestLocationPermission
 } from '../../services/geolocation-service';
 import { getCurrentLocationByCoordinates } from '../../services/google-map-service';
 import { Colors } from '../../styles/colors';
@@ -57,13 +57,15 @@ const HomeDetailScreen = () => {
   };
 
   const handleTakeBooking = async (newBooking: any) => {
+    const bookingList = [...newBookingData];
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
       title: 'Acclaim!',
       textBody:
         "Congrats! You have received a vehicle order. Let's explore together",
     });
-    dispatch.bookingStore.setNewBookingData([...newBookingData, newBooking]);
+    bookingList.push(newBooking);
+    dispatch.bookingStore.setNewBookingData(bookingList);
   };
 
   const handleChangeActiveStatus = () => {
@@ -75,10 +77,6 @@ const HomeDetailScreen = () => {
   useEffect(() => {
     socket?.on(SocketEvent.SEND_BOOKING, data => handleTakeBooking(data));
   }, [socket]);
-
-  useEffect(() => {
-    socket?.on(SocketEvent.SEND_BOOKING, data => console.log('Log', data));
-  }, []);
 
   return (
     <SafeAreaContainer
