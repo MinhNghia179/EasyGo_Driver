@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '../variables/app-config';
+import { API_URL } from 'react-native-dotenv';
 
 class ApiClient {
   client = {};

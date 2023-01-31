@@ -4,7 +4,7 @@ import {
   ICoordinates,
   IRouteInfo,
 } from '../interfaces/home-interface';
-import { GOOGLE_BASE_URL, GOOGLE_REST_API_KEY } from '../variables/app-config';
+import { GOOGLE_BASE_URL, GOOGLE_REST_API_KEY } from 'react-native-dotenv';
 
 export const getCurrentLocationByCoordinates = async (
   payload: ICoordinates,
