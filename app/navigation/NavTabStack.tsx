@@ -31,14 +31,14 @@ const NavTabStack = () => {
           tabBarIcon: props => <Icon name="home" size={IconSizes.small} />,
         }}></Tab.Screen>
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name={Route.ACCOUNT_STACK}
         component={() => <></>}
         options={{
           tabBarLabel: 'Account',
           tabBarColor: Colors.Text.Primary,
           tabBarIcon: props => <Icon name="book" size={IconSizes.small} />,
-        }}></Tab.Screen>
+        }}></Tab.Screen> */}
     </Tab.Navigator>
   );
 };

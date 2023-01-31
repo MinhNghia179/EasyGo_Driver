@@ -1,9 +1,9 @@
 import { connect } from 'socket.io-client';
 import { SocketEvent } from '../constants/constant';
-import { SOCKET_API_URL } from '../variables/app-config';
+import Config from 'react-native-config';
 
 export const Socket = (userId: string) => {
-  const socket = connect(SOCKET_API_URL, {
+  const socket = connect(Config.SOCKET_API_URL, {
     transports: ['websocket'],
   });
 
