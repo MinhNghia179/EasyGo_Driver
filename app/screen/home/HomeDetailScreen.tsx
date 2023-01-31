@@ -73,10 +73,12 @@ const HomeDetailScreen = () => {
   const doNotAllow = () => {};
 
   useEffect(() => {
-    if (activeStatus) {
-      socket?.on(SocketEvent.SEND_BOOKING, data => handleTakeBooking(data));
-    }
+    socket?.on(SocketEvent.SEND_BOOKING, data => handleTakeBooking(data));
   }, [socket]);
+
+  useEffect(() => {
+    socket?.on(SocketEvent.SEND_BOOKING, data => console.log('Log', data));
+  }, []);
 
   return (
     <SafeAreaContainer

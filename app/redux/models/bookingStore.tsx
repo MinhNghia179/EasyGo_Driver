@@ -1,7 +1,7 @@
 import apiClient from '../../services/api-client';
 
 export interface IBookingStore {
-  newBookingData: any;
+  newBookingData: any[];
   trackBookingId: string;
 }
 
@@ -13,7 +13,7 @@ const initialState: IBookingStore = {
 const bookingStore = {
   state: initialState,
   reducers: {
-    setNewBookingData: (state: IBookingStore, payload: any) => ({
+    setNewBookingData: (state: IBookingStore, payload: any[]) => ({
       ...state,
       newBookingData: payload,
     }),
