@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import Toast from 'react-native-root-toast';
+import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import LinkButton from '../../../components/Button/LinkButton';
@@ -49,7 +49,11 @@ const FormLogin = (props: IProps) => {
       await dispatch.authStore.doSignIn({ email: emailAddress, password });
       navigationService.navigate(HomeStackRoute.DASHBOARD, {});
     } catch (error) {
-      Toast.show(error);
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error!',
+        textBody: 'Oops, something went wrong! Please try again.',
+      });
     } finally {
       setIsLoading(false);
     }
