@@ -114,6 +114,7 @@ const HomeDetailScreen = () => {
           )}
         </MapView>
       </View>
+
       <ActionModal isVisible={!currentLocation} title="Enable your location">
         <Text type="footnote">
           This app requires that location services are turned on your device and
