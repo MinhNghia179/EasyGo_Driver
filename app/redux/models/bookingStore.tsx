@@ -25,14 +25,18 @@ const bookingStore = {
   effects: dispatch => ({
     async doAcceptBooking(payload: { bookingId: string }) {
       try {
-        return await apiClient.post(`/booking/acceptBooking?bookingId=${payload.bookingId}`);
+        return await apiClient.post(
+          `/booking/acceptBooking?bookingId=${payload.bookingId}`,
+        );
       } catch (error) {
         throw error;
       }
     },
     async doFinishBooking(payload: { bookingId: string }) {
       try {
-        return await apiClient.post(`/booking/finishBooking`, payload);
+        return await apiClient.post(
+          `/booking/finish?bookingId=${payload.bookingId}`,
+        );
       } catch (error) {
         throw error;
       }
