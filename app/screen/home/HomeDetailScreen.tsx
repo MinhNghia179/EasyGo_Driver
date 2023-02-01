@@ -14,7 +14,7 @@ import { SocketEvent } from '../../constants/constant';
 import { IRootDispatch, IRootState } from '../../redux/root-store';
 import {
   currentPosition,
-  requestLocationPermission
+  requestLocationPermission,
 } from '../../services/geolocation-service';
 import { getCurrentLocationByCoordinates } from '../../services/google-map-service';
 import { Colors } from '../../styles/colors';

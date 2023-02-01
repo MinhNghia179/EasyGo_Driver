@@ -7,7 +7,7 @@ import Geolocation from 'react-native-geolocation-service';
 import {
   NavigationParams,
   NavigationScreenProp,
-  NavigationState
+  NavigationState,
 } from 'react-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '../../components/Avatar';
@@ -79,7 +79,7 @@ const ShiftsItemDetail = (props: IProps) => {
   };
 
   const handleFinishBooking = async () => {
-    setIsLoading(true);
+    setIsSubmitting(true);
     try {
       const response = await dispatch.bookingStore.doFinishBooking({
         bookingId: shiftDetails?.id,
@@ -101,7 +101,7 @@ const ShiftsItemDetail = (props: IProps) => {
         textBody: 'Oops, something went wrong! Please try again.',
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -168,18 +168,10 @@ const ShiftsItemDetail = (props: IProps) => {
       leftIconOnPress={() => navigation.goBack()}
       stickyBottom={
         <View style={[styles.p_medium, styles.bg_white]}>
-          {trackBookingId === shiftDetails?.id && (
-            <PrimaryButton
-              disabled={isSubmitting}
-              onPress={() =>
-                navigationService.navigate(HomeStackRoute.WIZARD_DETAIL, {
-                  shiftDetails,
-                })
-              }>
-              See wizard details
-            </PrimaryButton>
-          )}
-          <SecondaryButton color={Colors.Text.GreySecondary} disabled={isSubmitting} onPress={() => {}}>
+          <SecondaryButton
+            color={Colors.Text.GreySecondary}
+            disabled={isSubmitting}
+            onPress={() => {}}>
             Ignore booking
           </SecondaryButton>
           {trackBookingId === shiftDetails?.id ? (
