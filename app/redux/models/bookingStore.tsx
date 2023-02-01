@@ -25,7 +25,7 @@ const bookingStore = {
   effects: dispatch => ({
     async doAcceptBooking(payload: { bookingId: string }) {
       try {
-        return await apiClient.post(`/booking/acceptBooking`, payload);
+        return await apiClient.post(`/booking/acceptBooking?bookingId=${payload.bookingId}`);
       } catch (error) {
         throw error;
       }
