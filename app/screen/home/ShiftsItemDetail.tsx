@@ -157,12 +157,27 @@ const ShiftsItemDetail = (props: IProps) => {
     }
   };
 
+  const handleCancelBooking = (info: any) => {
+    Toast.show({
+      type: ALERT_TYPE.WARNING,
+      title: 'Your booking has been successfully canceled!',
+      textBody: 'Customer cancels car reservation for reason: NO',
+    });
+    stopLocationUpdates();
+    clearState();
+    navigationService.navigate(HomeStackRoute.DASHBOARD, {});
+  };
+
   useEffect(() => {
     const shiftDetails: any = route?.params?.shiftDetails;
     if (!isEmpty(shiftDetails)) {
       fetchDirectionByCoordinates(shiftDetails);
     }
   }, [route.params]);
+
+  useEffect(() => {
+    socket?.on(SocketEvent.CANCEL_BOOKING, data => handleCancelBooking(data));
+  }, [socket]);
 
   return (
     <SafeAreaContainer

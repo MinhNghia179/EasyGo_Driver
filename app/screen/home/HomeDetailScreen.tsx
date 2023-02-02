@@ -69,16 +69,19 @@ const HomeDetailScreen = () => {
     }
   };
 
-  const handleTakeBooking = async (newBooking: any) => {
-    const bookingList = [...newBookingData];
-    Toast.show({
-      type: ALERT_TYPE.SUCCESS,
-      title: 'Acclaim!',
-      textBody:
-        "Congrats! You have received a vehicle order. Let's explore together",
+  const handleTakeBooking = (
+    newBookingData: any[],
+    callBack: (data: any[]) => void,
+  ) => {
+    socket?.on(SocketEvent.SEND_BOOKING, data => {
+      Toast.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Acclaim!',
+        textBody:
+          "Congrats! You have received a vehicle order. Let's explore together",
+      });
+      callBack([...newBookingData, data]);
     });
-    bookingList.push(newBooking);
-    dispatch.bookingStore.setNewBookingData(bookingList);
   };
 
   const handleChangeActiveStatus = () => {
@@ -88,7 +91,7 @@ const HomeDetailScreen = () => {
   const doNotAllow = () => {};
 
   useEffect(() => {
-    socket?.on(SocketEvent.SEND_BOOKING, data => handleTakeBooking(data));
+    handleTakeBooking(newBookingData, dispatch.bookingStore.setNewBookingData);
   }, [socket]);
 
   return (
