@@ -5,6 +5,7 @@ import { Text } from '../../../components/Text';
 import { wp } from '../../../services/response-screen-service';
 import { Colors } from '../../../styles/colors';
 import styles from '../../../styles/style-sheet';
+import { numberWithCommas } from '../../../utils/constant';
 import CardItem from './CardItem';
 
 interface IProps {
@@ -52,7 +53,7 @@ const ShiftsItem = (props: IProps) => {
           </View>
           <View style={[styles.flex_col, styles.alg_end]}>
             <Text fontWeight="bold" type="subhead">
-              $ {shiftDetails?.totalPrice}
+              $ {numberWithCommas(shiftDetails?.totalPrice)}
             </Text>
           </View>
         </View>

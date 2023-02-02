@@ -24,6 +24,7 @@ import { wp } from '../../services/response-screen-service';
 import { Colors } from '../../styles/colors';
 import styles from '../../styles/style-sheet';
 import BookingStatusLabel from './components/BookingStatusLabel';
+import CancelBooking from './components/CancelBooking';
 import CardItem from './components/CardItem';
 import DirectionIcon from './components/DirectionIcon';
 import MapViewDirection from './components/MapViewDirection';
@@ -46,6 +47,9 @@ const ShiftsItemDetail = (props: IProps) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [location, setLocation] = useState<any>(null);
   const [shiftDetails, setShiftDetails] = useState<any>(null);
+  const [visibleCancelBookingModal, setVisibleCancelBookingModal] =
+    useState<boolean>(false);
+  const [reason, setReason] = useState<string>('');
 
   const route: any = useRoute();
 
@@ -57,6 +61,7 @@ const ShiftsItemDetail = (props: IProps) => {
   };
 
   const clearState = () => {
+    setLocation(null);
     dispatch.bookingStore.setTrackBookingId('');
     dispatch.bookingStore.setNewBookingData([]);
   };
@@ -158,14 +163,19 @@ const ShiftsItemDetail = (props: IProps) => {
   };
 
   const handleCancelBooking = (info: any) => {
+    setReason(info?.reason);
+    setVisibleCancelBookingModal(true);
     Toast.show({
       type: ALERT_TYPE.WARNING,
       title: 'Your booking has been successfully canceled!',
-      textBody: 'Customer cancels car reservation for reason: NO',
     });
     stopLocationUpdates();
+  };
+
+  const handleCloseCancelBookingModal = () => {
     clearState();
     navigationService.navigate(HomeStackRoute.DASHBOARD, {});
+    setVisibleCancelBookingModal(false);
   };
 
   useEffect(() => {
@@ -355,6 +365,13 @@ const ShiftsItemDetail = (props: IProps) => {
           </View>
         )}
       </ScrollView>
+
+      <CancelBooking
+        visible={visibleCancelBookingModal}
+        reason={reason}
+        shiftDetails={shiftDetails}
+        onClose={handleCloseCancelBookingModal}
+      />
     </SafeAreaContainer>
   );
 };
