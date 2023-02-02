@@ -5,6 +5,7 @@ import Config from 'react-native-config';
 export const Socket = (userId: string) => {
   const socket = connect(Config.SOCKET_API_URL, {
     transports: ['websocket'],
+    jsonp: false,
   });
 
   socket.on(SocketEvent.CONNECT, function () {

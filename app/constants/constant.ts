@@ -28,6 +28,7 @@ const SocketEvent = {
   SEND_BOOKING: 'send_booking',
   SEND_DRIVER_INFO: 'send_driver',
   TRACK: 'track',
+  CHAT: 'chat',
 };
 
 const BookingStatus = {

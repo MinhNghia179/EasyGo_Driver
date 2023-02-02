@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import { Switch } from 'react-native-elements';
@@ -38,6 +38,8 @@ const HomeDetailScreen = () => {
     }),
   );
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const initialRegion = {
     latitude: currentLocation?.location?.latitude || 21.030813822253087,
     longitude: currentLocation?.location?.longitude || 105.7994291596386,
@@ -46,13 +48,24 @@ const HomeDetailScreen = () => {
   };
 
   const allowToEnableLocation = async () => {
-    const isGranted = await requestLocationPermission();
-    if (isGranted) {
-      const response = await currentPosition();
-      if (response) {
-        const address = await getCurrentLocationByCoordinates(response);
-        dispatch.authStore.setCurrentLocation(address);
+    setIsLoading(true);
+    try {
+      const isGranted = await requestLocationPermission();
+      if (isGranted) {
+        const response = await currentPosition();
+        if (response) {
+          const address = await getCurrentLocationByCoordinates(response);
+          dispatch.authStore.setCurrentLocation(address);
+        }
       }
+    } catch (error) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error!',
+        textBody: 'Oops, something went wrong! Please try again.',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,6 +135,7 @@ const HomeDetailScreen = () => {
         </Text>
         <View style={[styles.flex_col, styles.alg_center, styles.jus_between]}>
           <PrimaryButton
+            disabled={isLoading}
             color={Colors.Orange500}
             style={[styles.mv_medium]}
             onPress={allowToEnableLocation}>

@@ -68,8 +68,12 @@ const ShiftsItemDetail = (props: IProps) => {
           latitude: position?.coords?.latitude,
           longitude: position?.coords?.longitude,
         };
+        socket?.emit(SocketEvent.TRACK, {
+          lat: coordinates.latitude,
+          lon: coordinates.longitude,
+          to: shiftDetails?.userId,
+        });
         setLocation(coordinates);
-        socket?.emit(SocketEvent.TRACK, coordinates);
       },
       error => {
         console.error(error);
