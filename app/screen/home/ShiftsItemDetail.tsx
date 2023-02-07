@@ -96,8 +96,8 @@ const ShiftsItemDetail = (props: IProps) => {
       if (response.status === 200) {
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
-          title: 'Successfully!',
-          textBody: 'Successfully!. The ride is completed',
+          title: 'Thành công!',
+          textBody: 'Cuốc xe đã hoàn thành.',
         });
         stopLocationUpdates();
         clearState();
@@ -106,8 +106,8 @@ const ShiftsItemDetail = (props: IProps) => {
     } catch (error) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
-        title: 'Error!',
-        textBody: 'Oops, something went wrong! Please try again.',
+        title: 'Lỗi!',
+        textBody: 'Rất tiếc, đã xảy ra lỗi! Vui lòng thử lại.',
       });
     } finally {
       setIsSubmitting(false);
@@ -146,16 +146,16 @@ const ShiftsItemDetail = (props: IProps) => {
         dispatch.bookingStore.setTrackBookingId(shiftDetails?.id);
         Toast.show({
           type: ALERT_TYPE.SUCCESS,
-          title: 'Successfully!',
-          textBody: "Successfully. Let's go, customers are waiting.",
+          title: 'Thành công!',
+          textBody: 'Cuốc xe đã được bạn chấp nhận!',
         });
         getLocationUpdates();
       }
     } catch (error) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
-        title: 'Error!',
-        textBody: 'Oops, something went wrong! Please try again.',
+        title: 'Lỗi!',
+        textBody: 'Rất tiếc, đã xảy ra lỗi! Vui lòng thử lại.',
       });
     } finally {
       setIsSubmitting(false);
@@ -167,7 +167,7 @@ const ShiftsItemDetail = (props: IProps) => {
     setVisibleCancelBookingModal(true);
     Toast.show({
       type: ALERT_TYPE.WARNING,
-      title: 'Your booking has been successfully canceled!',
+      title: 'Cuốc đã đã được hủy bỏ bởi khách hàng.',
     });
     stopLocationUpdates();
   };
@@ -193,7 +193,7 @@ const ShiftsItemDetail = (props: IProps) => {
     <SafeAreaContainer
       leftIconName="back"
       contentType="scrollView"
-      title="Shift Details"
+      title="Chi tiết đơn hàng"
       leftIconOnPress={() => navigation.goBack()}
       stickyBottom={
         <View style={[styles.p_medium, styles.bg_white]}>
@@ -201,7 +201,7 @@ const ShiftsItemDetail = (props: IProps) => {
             color={Colors.Text.GreySecondary}
             disabled={isSubmitting}
             onPress={() => {}}>
-            Ignore booking
+            Loại bỏ
           </SecondaryButton>
           {trackBookingId === shiftDetails?.id ? (
             <PrimaryButton
@@ -209,7 +209,7 @@ const ShiftsItemDetail = (props: IProps) => {
               style={[styles.mt_small]}
               color={Colors.Green500}
               onPress={handleFinishBooking}>
-              Finish booking
+              Kết thúc cuốc xe
             </PrimaryButton>
           ) : (
             <PrimaryButton
@@ -217,7 +217,7 @@ const ShiftsItemDetail = (props: IProps) => {
               style={[styles.mt_small]}
               color={Colors.Yellow500}
               onPress={handleAcceptBooking}>
-              Accept booking
+              Chấp nhận cuốc xe
             </PrimaryButton>
           )}
         </View>
@@ -225,7 +225,7 @@ const ShiftsItemDetail = (props: IProps) => {
       <ScrollView>
         {isLoading ? (
           <>
-            <Text textAlign="center">Loading shift details...</Text>
+            <Text textAlign="center">Loading...</Text>
             <ActivityIndicator />
           </>
         ) : (
@@ -265,23 +265,14 @@ const ShiftsItemDetail = (props: IProps) => {
                 </Text>
               </View>
             </View>
-            <View style={[styles.flex_row, styles.jus_between]}>
-              <CardItem label="BOOKING INFO" />
-              <BookingStatusLabel value={shiftDetails?.status} />
-            </View>
-            <View
-              style={[
-                styles.ph_small,
-                styles.mv_small,
-                styles.b_medium,
-                styles.rounded,
-                {
-                  borderColor: Colors.Blue200,
-                },
-              ]}>
-              <CardItem label="Pick up" value={shiftDetails?.nameStartPoint} />
-              <CardItem label="Drop off" value={shiftDetails?.nameEndPoint} />
-              <CardItem label="Notes" value={shiftDetails?.notes} />
+
+            <View style={[styles.mv_small]}>
+              <CardItem
+                label="Điểm xuất phát:"
+                value={shiftDetails?.nameStartPoint}
+              />
+              <CardItem label="Điểm đến:" value={shiftDetails?.nameEndPoint} />
+              <CardItem label="Ghi chú:" value={shiftDetails?.notes} />
             </View>
             <CardItem label="VIEW GOOGLE MAP" />
             <View
@@ -358,7 +349,7 @@ const ShiftsItemDetail = (props: IProps) => {
                     </View>
                   ))
                 ) : (
-                  <Text>Not Direction</Text>
+                  <Text>Không có chỉ dẫn</Text>
                 )}
               </View>
             </View>

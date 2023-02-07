@@ -61,8 +61,8 @@ const HomeDetailScreen = () => {
     } catch (error) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
-        title: 'Error!',
-        textBody: 'Oops, something went wrong! Please try again.',
+        title: 'Lỗi!',
+        textBody: 'Rất tiếc, đã xảy ra lỗi! Vui lòng thử lại.',
       });
     } finally {
       setIsLoading(false);
@@ -76,9 +76,9 @@ const HomeDetailScreen = () => {
     socket?.on(SocketEvent.SEND_BOOKING, data => {
       Toast.show({
         type: ALERT_TYPE.SUCCESS,
-        title: 'Acclaim!',
+        title: 'Hoan hô!',
         textBody:
-          "Congrats! You have received a vehicle order. Let's explore together",
+          'Bạn đã nhận được một đơn đặt hàng xe. Hãy cùng nhau khám phá',
       });
       callBack([...newBookingData, data]);
     });
@@ -96,7 +96,7 @@ const HomeDetailScreen = () => {
 
   return (
     <SafeAreaContainer
-      title="Offline"
+      title="Trang chủ"
       leftIconName="back"
       stickyTop={<StickyTopSection activeStatus={activeStatus} />}
       stickyBottom={<StickyBottomSection newBookingData={newBookingData} />}
@@ -133,8 +133,9 @@ const HomeDetailScreen = () => {
 
       <ActionModal isVisible={!currentLocation} title="Enable your location">
         <Text type="footnote">
-          This app requires that location services are turned on your device and
-          for this app. You must enable them in Settings before using this app
+          Ứng dụng này yêu cầu dịch vụ vị trí được bật trên thiết bị của bạn và
+          cho ứng dụng này. Bạn phải bật chúng trong Cài đặt trước khi sử dụng
+          ứng dụng này
         </Text>
         <View style={[styles.flex_col, styles.alg_center, styles.jus_between]}>
           <PrimaryButton
@@ -142,9 +143,11 @@ const HomeDetailScreen = () => {
             color={Colors.Orange500}
             style={[styles.mv_medium]}
             onPress={allowToEnableLocation}>
-            Allow only while using the app
+            Cho phép khi sử dụng ứng dụng
           </PrimaryButton>
-          <LinkButton onPress={doNotAllow}>Don't allow this app</LinkButton>
+          <LinkButton onPress={doNotAllow}>
+            Không cho phép ứng dụng này
+          </LinkButton>
         </View>
       </ActionModal>
     </SafeAreaContainer>

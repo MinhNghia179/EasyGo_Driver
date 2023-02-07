@@ -54,8 +54,8 @@ const LoginScreen = () => {
             )}
             <View style={[styles.flex, styles.alg_center, styles.mt_large]}>
               <Text type="footnote" textAlign="center">
-                By creating an account, you agree to our Terms of Service and
-                Privacy Policy
+                Bằng cách tạo một tài khoản, bạn đồng ý với Điều khoản dịch vụ
+                của chúng tôi và Chính sách bảo mật
               </Text>
             </View>
           </View>

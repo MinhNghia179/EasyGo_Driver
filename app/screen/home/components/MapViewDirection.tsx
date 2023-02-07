@@ -47,7 +47,7 @@ const MapViewDirection = (props: IProps) => {
       {!!pickUpLocation && (
         <Marker
           coordinate={pickUpLocation}
-          title="Start Location"
+          title="Điểm xuất phát"
           description={shiftDetails?.nameStartPoint}>
           <Icon
             name="my-location"
@@ -68,7 +68,7 @@ const MapViewDirection = (props: IProps) => {
       {!!dropOffLocation && (
         <Marker
           coordinate={dropOffLocation}
-          title="End Location"
+          title="Điểm đến"
           description={shiftDetails?.nameEndPoint}>
           <Icon
             name="my-location"

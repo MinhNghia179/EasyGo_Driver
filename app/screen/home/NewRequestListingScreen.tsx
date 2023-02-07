@@ -28,7 +28,7 @@ const NewRequestListingScreen = (props: IProps) => {
 
   return (
     <SafeAreaContainer
-      title="New Request"
+      title="Danh sách đơn hàng"
       contentType="scrollView"
       leftIconName="back"
       stickyTop={
@@ -40,8 +40,7 @@ const NewRequestListingScreen = (props: IProps) => {
             },
           ]}>
           <Text fontWeight="bold" type="caption1">
-            You have {newBookingData.length} new request
-            {newBookingData.length !== 1 && 's'}.
+            Bạn đang có {newBookingData.length} đơn đặt xe từ khách hàng
           </Text>
         </View>
       }
@@ -50,8 +49,8 @@ const NewRequestListingScreen = (props: IProps) => {
         <View style={[styles.p_medium]}>
           {!newBookingData.length ? (
             <Text>
-              There are currently no orders. Don't forget to open your active
-              status to receive orders
+              Hiện tại không có đơn đặt hàng nào. Đừng quên mở trạng thái hoạt
+              động của bạn để nhận đơn hàng
             </Text>
           ) : (
             <>

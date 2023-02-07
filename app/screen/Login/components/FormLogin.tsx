@@ -51,8 +51,8 @@ const FormLogin = (props: IProps) => {
     } catch (error) {
       Toast.show({
         type: ALERT_TYPE.DANGER,
-        title: 'Error!',
-        textBody: 'Oops, something went wrong! Please try again.',
+        title: 'Lỗi!',
+        textBody: 'Rất tiếc, đã xảy ra lỗi! Vui lòng thử lại.',
       });
     } finally {
       setIsLoading(false);
@@ -65,7 +65,7 @@ const FormLogin = (props: IProps) => {
         color={Colors.Orange500}
         disable={isLoading}
         onPress={onSelectLoginWithPhoneNumber}>
-        Login with mobile number
+        Đăng nhập bằng số di động
       </PrimaryButton>
 
       <View
@@ -99,14 +99,14 @@ const FormLogin = (props: IProps) => {
           color={Colors.Orange500}
           loading={isLoading}
           onPress={onSubmit}>
-          Login
+          Đăng nhập
         </PrimaryButton>
         <View style={[styles.flex, styles.alg_center, styles.mv_large]}>
           <LinkButton
             type="footnote"
             color={Colors.Grey500}
             onPress={navigateToForgotPassWord}>
-            Forgot your password?
+            Quên mật khẩu?
           </LinkButton>
         </View>
       </View>

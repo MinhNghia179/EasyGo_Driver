@@ -58,8 +58,11 @@ const ShiftsItem = (props: IProps) => {
           </View>
         </View>
         <View style={[styles.p_medium]}>
-          <CardItem label="PICK UP" value={shiftDetails?.nameStartPoint} />
-          <CardItem label="DROP OFF" value={shiftDetails?.nameEndPoint} />
+          <CardItem
+            label="Điểm xuất phát"
+            value={shiftDetails?.nameStartPoint}
+          />
+          <CardItem label="Điểm đến" value={shiftDetails?.nameEndPoint} />
         </View>
       </View>
     </TouchableOpacity>

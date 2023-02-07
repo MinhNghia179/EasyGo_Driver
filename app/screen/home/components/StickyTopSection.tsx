@@ -32,13 +32,13 @@ const StickyTopSection = (props: IProps) => {
         <Text
           fontWeight="bold"
           type="footnote"
-          color={Colors.Text.Primary}>{`You are ${
-          activeStatus ? 'online' : 'offline'
+          color={Colors.Text.Primary}>{`Trạng thái của bạn: ${
+          activeStatus ? 'Online' : 'Offline'
         }!`}</Text>
         <Text type="footnote">
           {activeStatus
-            ? 'Customers are waiting for you. Let go...'
-            : 'Go online to start accepting jobs'}
+            ? 'Bạn đang hoạt động, hãy chờ đợi để nhận đơn hàng'
+            : 'Hãy bật trạng thái để bắt đầu nhận đơn nào.'}
         </Text>
       </View>
     </View>

@@ -54,6 +54,9 @@ const StickyBottomSection = (props: IProps) => {
 
   return (
     <View style={[styles.p_medium]}>
+      <Text fontWeight="bold" color={Colors.Orange400} type="subhead">
+        EASY GO
+      </Text>
       <View
         style={[
           styles.mv_small,
@@ -91,21 +94,30 @@ const StickyBottomSection = (props: IProps) => {
           styles.p_12,
           styles.rounded_small,
           styles.flex_row,
-          styles.alg_center,
           styles.jus_around,
           styles.mt_small,
+          styles.flex_wrap,
           {
             backgroundColor: Colors.Yellow300,
           },
         ]}>
-        <Item iconName="clockcircleo" label="HOURS ONLINE" value={10.2} />
-        <Item iconName="dashboard" label="TOTAL DISTANCE (KM)" value={30} />
+        <Item
+          iconName="clockcircleo"
+          label="Số giờ đã hoạt động"
+          value={10.2}
+        />
+        <Item
+          iconName="dashboard"
+          label="Khoảng cách đã di chuyển (KM)"
+          value={30}
+        />
         <Item
           iconName="exception1"
-          label="TOTAL JOBS"
+          label="Đơn hàng hiện có"
           value={newBookingData?.length}
           onPress={navigateToNewRequestListing}
         />
+        <Item iconName="exception1" label="Số tiền đã kiếm được" value={20.0} />
       </View>
     </View>
   );

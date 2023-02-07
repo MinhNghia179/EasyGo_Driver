@@ -19,19 +19,20 @@ const CancelBooking = (props: IProps) => {
   return (
     <ActionModal isVisible={visible} title="Booking canceled" onClose={onClose}>
       <Text type="footnote">
-        Sorry. The booking has been canceled by{' '}
-        <Text fontWeight="bold">{shiftDetails?.userName}</Text> and you will not
-        receive any commission from customer orders.
+        Xin lỗi. Đơn cuốc xe đã bị hủy bỏ bởi{' '}
+        <Text fontWeight="bold">{shiftDetails?.userName}</Text>
+        và bạn sẽ không nhận bất kỳ khoản hoa hồng nào từ đơn đặt hàng của khách
+        hàng.
       </Text>
       <View style={[styles.mv_small]}>
-        <Text fontWeight="bold">Reason: {reason}</Text>
+        <Text fontWeight="bold">Lý do: {reason}</Text>
       </View>
       <View style={[styles.flex_col, styles.alg_center, styles.alg_end]}>
         <PrimaryButton
           color={Colors.Orange500}
           style={[styles.mv_medium]}
           onPress={onClose}>
-          Close
+          Đóng
         </PrimaryButton>
       </View>
     </ActionModal>
