@@ -17,15 +17,14 @@ const CancelBooking = (props: IProps) => {
   const { visible, onClose, shiftDetails, reason } = props;
 
   return (
-    <ActionModal isVisible={visible} title="Booking canceled" onClose={onClose}>
+    <ActionModal isVisible={visible} title="Hủy cuốc xe" onClose={onClose}>
       <Text type="footnote">
-        Xin lỗi. Đơn cuốc xe đã bị hủy bỏ bởi{' '}
-        <Text fontWeight="bold">{shiftDetails?.userName}</Text>
-        và bạn sẽ không nhận bất kỳ khoản hoa hồng nào từ đơn đặt hàng của khách
-        hàng.
+        Xin lỗi. Đơn cuốc xe đã bị hủy bỏ bởi&nbsp;
+        <Text fontWeight="bold">{shiftDetails?.userName}</Text>&nbsp;và bạn sẽ
+        không nhận bất kỳ khoản hoa hồng nào từ đơn đặt hàng của khách hàng.
       </Text>
       <View style={[styles.mv_small]}>
-        <Text fontWeight="bold">Lý do: {reason}</Text>
+        <Text fontWeight="bold">Lý do:&nbsp;{reason}</Text>
       </View>
       <View style={[styles.flex_col, styles.alg_center, styles.alg_end]}>
         <PrimaryButton

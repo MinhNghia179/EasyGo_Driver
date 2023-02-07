@@ -8,11 +8,10 @@ import IconSizes from '../../../styles/icon-size';
 
 interface IProps {
   shiftDetails: any;
-  location: any;
 }
 
 const MapViewDirection = (props: IProps) => {
-  const { shiftDetails, location } = props;
+  const { shiftDetails } = props;
 
   const initialRegion = {
     latitude: shiftDetails?.latStartPoint,
@@ -38,6 +37,7 @@ const MapViewDirection = (props: IProps) => {
       zoomEnabled
       region={initialRegion}
       zoomControlEnabled
+      showsUserLocation
       style={[
         styles.flex_1,
         {
@@ -56,15 +56,7 @@ const MapViewDirection = (props: IProps) => {
           />
         </Marker>
       )}
-      {!!location && (
-        <Marker coordinate={location} title="My Location">
-          <Icon
-            name="directions-bike"
-            color={Colors.Blue300}
-            size={IconSizes.x_small}
-          />
-        </Marker>
-      )}
+
       {!!dropOffLocation && (
         <Marker
           coordinate={dropOffLocation}

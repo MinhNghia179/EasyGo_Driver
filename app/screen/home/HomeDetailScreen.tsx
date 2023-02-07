@@ -131,7 +131,9 @@ const HomeDetailScreen = () => {
         </MapView>
       </View>
 
-      <ActionModal isVisible={!currentLocation} title="Enable your location">
+      <ActionModal
+        isVisible={!currentLocation}
+        title="Bật vị trí hiện tại của bạn">
         <Text type="footnote">
           Ứng dụng này yêu cầu dịch vụ vị trí được bật trên thiết bị của bạn và
           cho ứng dụng này. Bạn phải bật chúng trong Cài đặt trước khi sử dụng
