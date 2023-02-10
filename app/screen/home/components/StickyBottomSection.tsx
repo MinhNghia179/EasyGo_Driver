@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import { Rating } from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useSelector } from 'react-redux';
 import { Avatar } from '../../../components/Avatar';
@@ -75,20 +76,33 @@ const StickyBottomSection = (props: IProps) => {
             <Text fontWeight="bold" type="subhead">
               {portalUser?.username}
             </Text>
-            <Text color={Colors.Text.GreySecondary} type="caption1">
-              Basic level
-            </Text>
+            <View style={[styles.flex_row, styles.alg_center]}>
+              <Text color={Colors.Text.GreySecondary} type="caption1">
+                Basic level:
+              </Text>
+              <Rating
+                readonly
+                ratingColor={Colors.Orange400}
+                style={[styles.ml_small]}
+                type="star"
+                ratingCount={portalUser?.rating}
+                imageSize={15}
+              />
+            </View>
           </View>
         </View>
-        <View style={[styles.flex_col, styles.alg_end]}>
-          <Text fontWeight="bold" type="subhead">
-            $20.00
+        <View style={[styles.flex_col, styles.alg_end, styles.flex_col]}>
+          <Text type="caption1" color={Colors.Text.GreySecondary}>
+            Số cuốc đã hoàn thành:{' '}
+            <Text fontWeight="bold">{portalUser?.rideComplete}</Text> +
           </Text>
           <Text type="caption1" color={Colors.Text.GreySecondary}>
-            Earned
+            Biển xe đăng ký:{' '}
+            <Text fontWeight="bold">{portalUser?.licensePlate}</Text>
           </Text>
         </View>
       </View>
+
       <View
         style={[
           styles.p_12,

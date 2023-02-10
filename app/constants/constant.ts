@@ -32,11 +32,18 @@ const SocketEvent = {
   CANCEL_BOOKING: 'cancel_booking',
 };
 
-const BookingStatus = {
-  CREATED: 'CREATED',
-  ACCEPT: 'ACCEPT',
-  REJECT: 'REJECT',
-  SUCCESS: 'SUCCESS',
+enum BookingStatus {
+  CREATED = 'CREATED',
+  PROGRESS = 'PROGRESS',
+  FINISH = 'FINISH',
+  CANCEL = 'CANCEL',
+}
+
+const BookingStep = {
+  [BookingStatus.CREATED]: 0,
+  [BookingStatus.PROGRESS]: 1,
+  [BookingStatus.FINISH]: 2,
+  [BookingStatus.CANCEL]: 3,
 };
 
 export {
@@ -46,4 +53,5 @@ export {
   AccountStackRoute,
   SocketEvent,
   BookingStatus,
+  BookingStep,
 };

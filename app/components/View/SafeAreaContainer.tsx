@@ -106,7 +106,7 @@ const SafeAreaContainer = (props: ISafeAreaViewProps) => {
           <Icon
             name="arrow-back"
             size={IconSizes.x_small}
-            color={Colors.Green600}
+            color={Colors.Orange400}
           />
         );
       }

@@ -53,7 +53,7 @@ const ShiftsItem = (props: IProps) => {
           </View>
           <View style={[styles.flex_col, styles.alg_end]}>
             <Text fontWeight="bold" type="subhead">
-              $ {numberWithCommas(shiftDetails?.totalPrice)}
+              {numberWithCommas(shiftDetails?.totalPrice)} (VNĐ)
             </Text>
           </View>
         </View>
