@@ -38,6 +38,7 @@ const MapViewDirection = (props: IProps) => {
       region={initialRegion}
       zoomControlEnabled
       showsUserLocation
+      showsMyLocationButton
       style={[
         styles.flex_1,
         {

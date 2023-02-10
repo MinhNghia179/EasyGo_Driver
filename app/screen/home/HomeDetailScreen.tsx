@@ -114,6 +114,8 @@ const HomeDetailScreen = () => {
           zoomEnabled
           rotateEnabled
           pitchEnabled
+          showsMyLocationButton
+          showsUserLocation
           zoomControlEnabled
           style={[styles.flex_1]}>
           {currentLocation && currentLocation?.location && (
